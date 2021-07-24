@@ -1,6 +1,7 @@
 package com.login.apilogin.controller;
 
 import com.login.apilogin.domain.Endereco;
+import com.login.apilogin.request.EnderecoRequestBody;
 import com.login.apilogin.service.EnderecoService;
 import com.login.apilogin.service.impl.EnderecoServiceImpl;
 import com.login.apilogin.util.DateUtil;
@@ -41,8 +42,8 @@ public class EnderecoController {
     }
 
     @PostMapping(path = "/saveEndereco")
-    public ResponseEntity<Endereco> save(@RequestBody Endereco endereco){
-        return new ResponseEntity<>(enderecoService.save(endereco), HttpStatus.CREATED);
+    public ResponseEntity<Endereco> save(@RequestBody EnderecoRequestBody enderecoRequestBody){
+        return new ResponseEntity<>(enderecoService.save(enderecoRequestBody), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/replaceEndereco")

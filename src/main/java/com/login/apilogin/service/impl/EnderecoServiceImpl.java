@@ -1,7 +1,9 @@
 package com.login.apilogin.service.impl;
 
 import com.login.apilogin.domain.Endereco;
+import com.login.apilogin.mapper.EnderecoMapper;
 import com.login.apilogin.repository.EnderecoRepository;
+import com.login.apilogin.request.EnderecoRequestBody;
 import com.login.apilogin.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +31,8 @@ public class EnderecoServiceImpl implements EnderecoService {
     }
 
     @Override
-    public Endereco save(Endereco endereco) {
-        return enderecoRepository.save(endereco);
+    public Endereco save(EnderecoRequestBody enderecoRequestBody) {
+        return enderecoRepository.save(EnderecoMapper.INSTANCE.toEndereco(enderecoRequestBody));
     }
 
     @Override
