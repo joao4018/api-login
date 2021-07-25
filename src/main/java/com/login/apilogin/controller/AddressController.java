@@ -1,6 +1,7 @@
 package com.login.apilogin.controller;
 
 import com.login.apilogin.domain.Address;
+import com.login.apilogin.request.AddressReplaceRequestBody;
 import com.login.apilogin.request.AddressRequestBody;
 import com.login.apilogin.service.impl.AddressServiceImpl;
 import com.login.apilogin.util.DateUtil;
@@ -51,8 +52,8 @@ public class AddressController {
     }
 
     @PutMapping(path = "/replaceEndereco")
-    public ResponseEntity<Void> replace(@RequestBody AddressRequestBody addressRequestBody){
-        enderecoService.replace(addressRequestBody);
+    public ResponseEntity<Void> replace(@RequestBody AddressReplaceRequestBody addressReplaceRequestBody){
+        enderecoService.replace(addressReplaceRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
