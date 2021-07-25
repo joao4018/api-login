@@ -7,15 +7,16 @@ import com.login.apilogin.repository.AddressRepository;
 import com.login.apilogin.request.AddressReplaceRequestBody;
 import com.login.apilogin.request.AddressRequestBody;
 import com.login.apilogin.service.AddressService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
 
-    @Autowired
     AddressRepository addressRepository;
 
     @Override
