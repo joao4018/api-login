@@ -1,14 +1,13 @@
 package com.login.apilogin.service.impl;
 
 import com.login.apilogin.domain.Address;
+import com.login.apilogin.exception.BadRequestException;
 import com.login.apilogin.mapper.AddressMapper;
 import com.login.apilogin.repository.AddressRepository;
 import com.login.apilogin.request.AddressRequestBody;
 import com.login.apilogin.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Address findById(Long id) {
         return addressRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Endereco não Encontrado"));
+                .orElseThrow(() -> new BadRequestException("Address Not Found!"));
 
     }
 
