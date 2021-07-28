@@ -1,6 +1,7 @@
 server:
   error:
     include-stacktrace: on_param
+  port: 8082
 
 spring:
   datasource:
@@ -10,3 +11,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
