@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class AddressController {
     }
 
     @PostMapping(path = "/saveEndereco")
-    public ResponseEntity<Address> save(@RequestBody AddressRequestBody addressRequestBody){
+    public ResponseEntity<Address> save(@RequestBody @Valid AddressRequestBody addressRequestBody){
         return new ResponseEntity<>(enderecoService.save(addressRequestBody), HttpStatus.CREATED);
     }
 
