@@ -7,6 +7,8 @@ import com.login.apilogin.service.impl.AddressServiceImpl;
 import com.login.apilogin.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +34,9 @@ public class AddressController {
     private final AddressServiceImpl enderecoService;
 
     @GetMapping(path = "/list")
-    public ResponseEntity<List<Address>> list(){
+    public ResponseEntity<Page<Address>> list(Pageable pageable){
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return ResponseEntity.ok(enderecoService.listAll());
+        return ResponseEntity.ok(enderecoService.listAll(pageable));
     }
 
     @GetMapping(path = "/{id}")

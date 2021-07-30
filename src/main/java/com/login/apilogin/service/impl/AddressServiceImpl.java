@@ -8,7 +8,8 @@ import com.login.apilogin.request.AddressReplaceRequestBody;
 import com.login.apilogin.request.AddressRequestBody;
 import com.login.apilogin.service.AddressService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,8 +22,8 @@ public class AddressServiceImpl implements AddressService {
     AddressRepository addressRepository;
 
     @Override
-    public List<Address> listAll() {
-        return addressRepository.findAll();
+    public Page<Address> listAll(Pageable pageable) {
+        return addressRepository.findAll(pageable);
     }
 
     @Override
