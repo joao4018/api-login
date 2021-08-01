@@ -1,4 +1,4 @@
-package com.login.apilogin.ApiParameters;
+package com.login.apilogin.apiParameters;
 
 import lombok.NoArgsConstructor;
 

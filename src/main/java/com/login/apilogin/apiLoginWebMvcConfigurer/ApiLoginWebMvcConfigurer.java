@@ -8,8 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
-import static com.login.apilogin.ApiParameters.SystemParameters.PAGE_INIT;
-import static com.login.apilogin.ApiParameters.SystemParameters.PAGE_SIZE;
+import static com.login.apilogin.apiParameters.SystemParameters.PAGE_INIT;
+import static com.login.apilogin.apiParameters.SystemParameters.PAGE_SIZE;
 
 @Configuration
 public class ApiLoginWebMvcConfigurer implements WebMvcConfigurer {
