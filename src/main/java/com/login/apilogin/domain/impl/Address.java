@@ -12,7 +12,7 @@ import javax.persistence.Id;
 
 @Entity(name = "API_ADDRESS")
 @Data
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Address {
