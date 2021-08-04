@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static com.login.apilogin.constants.SystemConstantsExceptions.ADDRESS_NOT_FOUND_BAD_REQUEST_EXCEPTION;
+
 @Service
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
@@ -29,7 +31,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Address findById(Long id) {
         return addressRepository.findById(id)
-                .orElseThrow(() -> new BadRequestException("Address Not Found!"));
+                .orElseThrow(() -> new BadRequestException(ADDRESS_NOT_FOUND_BAD_REQUEST_EXCEPTION));
 
     }
 
