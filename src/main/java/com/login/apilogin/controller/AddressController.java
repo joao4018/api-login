@@ -35,7 +35,7 @@ public class AddressController {
 
     @GetMapping(path = "/list")
     public ResponseEntity<Page<Address>> list(Pageable pageable){
-        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+//        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(enderecoService.listAll(pageable));
     }
 
