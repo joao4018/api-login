@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +70,15 @@ class AddressRepositoryTest {
         List<Address> byStreet = addressRepository.findByStreet(DEFAULT_STREET_TEST);
 
         Assertions.assertThat(byStreet).isEqualTo(listAddress);
+    }
+
+    @Test
+    @DisplayName("Test for contraint violation exception in save address validation.")
+    void throwContraintViolationExceptionAddressTest() {
+
+        Assertions.assertThatThrownBy(() -> addressRepository.save(new Address()))
+                .isInstanceOf(ConstraintViolationException.class)
+                .hasMessageContaining("The street name cannot be empty");
     }
 
 }
