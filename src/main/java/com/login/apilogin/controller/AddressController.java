@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -34,28 +33,28 @@ public class AddressController {
     private final AddressServiceImpl enderecoService;
 
     @GetMapping(path = "/list")
-    public ResponseEntity<Page<Address>> list(Pageable pageable){
+    public ResponseEntity<Page<Address>> list(Pageable pageable) {
 //        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(enderecoService.listAll(pageable));
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Address> findById(@PathVariable Long id){
+    public ResponseEntity<Address> findById(@PathVariable Long id) {
         return ResponseEntity.ok(enderecoService.findById(id));
     }
 
     @GetMapping(path = "/byStreet")
-    public ResponseEntity<List<Address>> findByIdStreet(@RequestParam String street){
+    public ResponseEntity<List<Address>> findByIdStreet(@RequestParam String street) {
         return ResponseEntity.ok(enderecoService.findByStreet(street));
     }
 
     @PostMapping(path = "/saveEndereco")
-    public ResponseEntity<Address> save(@RequestBody @Valid AddressRequestBody addressRequestBody){
+    public ResponseEntity<Address> save(@RequestBody @Valid AddressRequestBody addressRequestBody) {
         return new ResponseEntity<>(enderecoService.save(addressRequestBody), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/replaceEndereco")
-    public ResponseEntity<Void> replace(@RequestBody AddressReplaceRequestBody addressReplaceRequestBody){
+    public ResponseEntity<Void> replace(@RequestBody AddressReplaceRequestBody addressReplaceRequestBody) {
         enderecoService.replace(addressReplaceRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

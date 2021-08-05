@@ -8,6 +8,7 @@ import com.login.apilogin.request.AddressReplaceRequestBody;
 import com.login.apilogin.request.AddressRequestBody;
 import com.login.apilogin.service.AddressService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import static com.login.apilogin.constants.SystemConstantsExceptions.ADDRESS_NOT
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
 
+    @Autowired
     AddressRepository addressRepository;
 
     @Override
