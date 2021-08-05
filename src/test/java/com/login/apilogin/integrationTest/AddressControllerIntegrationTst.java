@@ -18,7 +18,7 @@ import org.springframework.http.HttpMethod;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
-class AnimeControllerIntegrationTst {
+class AddressControllerIntegrationTst {
 
     @Autowired
     private TestRestTemplate restTemplate;
