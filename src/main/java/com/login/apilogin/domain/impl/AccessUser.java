@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Check;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,8 +42,7 @@ public class AccessUser implements UserDetails {
     @NotNull
     private String password;
 
-    @NotEmpty(message = "The sing up date cannot be empty")
-    @NotNull
+    @CreationTimestamp
     private LocalDateTime singUpDate;
 
     @NotEmpty(message = "The role cannot be empty")
