@@ -2,6 +2,7 @@ package com.login.apilogin.config;
 
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,7 +40,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .authorizeRequests()
-                .anyRequest()
+                .antMatchers(HttpMethod.POST,"**/security/signup")
                 .authenticated()
                 .and()
                 .httpBasic();
