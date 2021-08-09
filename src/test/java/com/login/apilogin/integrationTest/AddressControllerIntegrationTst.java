@@ -38,6 +38,7 @@ class AddressControllerIntegrationTst {
         String expectedName = AddressBuilder.addressBuilder().getStreet();
 
         PageableResponse<Address> addressPageableResponse = restTemplate
+                .withBasicAuth("testAuth", "auth")
                 .exchange("/addresses/list", HttpMethod.GET, null,
                         new ParameterizedTypeReference<PageableResponse<Address>>() {
                         }).getBody();
