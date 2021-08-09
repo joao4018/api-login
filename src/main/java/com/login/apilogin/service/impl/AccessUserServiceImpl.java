@@ -1,12 +1,19 @@
 package com.login.apilogin.service.impl;
 
+import com.login.apilogin.domain.impl.AccessUser;
+import com.login.apilogin.mapper.AccessMapper;
+import com.login.apilogin.mapper.AddressMapper;
 import com.login.apilogin.repository.AccessUserRepository;
+import com.login.apilogin.request.AccessRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -18,5 +25,15 @@ public class AccessUserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) {
         return Optional.ofNullable(accessUserRepository.findAccessByUserName(userName))
                 .orElseThrow(() -> new UsernameNotFoundException("Access user not found!"));
+    }
+
+    public AccessUser createUser(AccessRequestBody accessRequestBody){
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        accessRequestBody.setPassword(passwordEncoder.encode(accessRequestBody.getPassword()));
+        AccessUser accessUser = AccessMapper.INSTANCE.toAccess(accessRequestBody);
+        return accessUserRepository.save(accessUser
+                .toBuilder()
+                .role("ROLE_USER")
+                .build());
     }
 }
