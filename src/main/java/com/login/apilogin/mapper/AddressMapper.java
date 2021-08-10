@@ -1,8 +1,8 @@
 package com.login.apilogin.mapper;
 
 import com.login.apilogin.domain.Address;
-import com.login.apilogin.request.AddressReplaceRequestBody;
-import com.login.apilogin.request.AddressRequestBody;
+import com.login.apilogin.request.AddressPutReplaceRequestBody;
+import com.login.apilogin.request.AddressPostRequestBody;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 public abstract class AddressMapper {
     public static final AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
 
-    public abstract Address toAddress(AddressRequestBody addressRequestBody);
+    public abstract Address toAddress(AddressPostRequestBody addressRequestBody);
 
-    public abstract Address toAddress(AddressReplaceRequestBody enderecoReplaceRequestBody);
+    public abstract Address toAddress(AddressPutReplaceRequestBody enderecoReplaceRequestBody);
 }

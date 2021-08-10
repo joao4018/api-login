@@ -1,8 +1,8 @@
 package com.login.apilogin.service;
 
 import com.login.apilogin.domain.Address;
-import com.login.apilogin.request.AddressReplaceRequestBody;
-import com.login.apilogin.request.AddressRequestBody;
+import com.login.apilogin.request.AddressPutReplaceRequestBody;
+import com.login.apilogin.request.AddressPostRequestBody;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +16,7 @@ public interface AddressService {
 
     List<Address> findByStreet(String street);
 
-    Address save(AddressRequestBody addressRequestBody);
+    Address save(AddressPostRequestBody addressRequestBody);
 
-    Address replace(AddressReplaceRequestBody addressRequestBody);
+    Address replace(AddressPutReplaceRequestBody addressRequestBody);
 }
