@@ -18,7 +18,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     protected final JwtConfiguration jwtConfiguration;
-    static final String SIGN_UP_URL = "**/signup/**";
+    static final String SIGN_UP_URL = "/security/signup/";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -33,10 +33,10 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,SIGN_UP_URL).permitAll()
                 .antMatchers(jwtConfiguration.getLoginUrl()).permitAll()
-                .antMatchers(jwtConfiguration.getLoginUrl(), "/**/swagger-ui.html/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/**/swagger-resources/**", "/**/webjars/springfox-swagger-ui/**", "/**/v2/api-docs/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/**/swagger-resources/**", "/**/webjars/springfox-swagger-ui/**", "/**/v2/api-docs/**").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/swagger-ui/**/*").permitAll()
+                .antMatchers("/v3/api-docs/**/*").permitAll()
+                .anyRequest()
+                .authenticated();
     }
 
 
