@@ -1,9 +1,10 @@
 package com.login.apilogin.controller;
 
 import com.login.apilogin.domain.impl.AccessUser;
-import com.login.apilogin.request.AccessRequestBody;
+import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
 import com.login.apilogin.util.DateUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,8 @@ public class AccessUserController {
     private final AccessUserServiceImpl accessUserService;
 
     @PostMapping(path = "/signup")
-    public ResponseEntity<AccessUser> save(@RequestBody @Valid AccessRequestBody accessRequestBody) {
+    @Operation(summary = "Create a new user")
+    public ResponseEntity<AccessUser> save(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
         return new ResponseEntity<>(accessUserService.createUser(accessRequestBody), HttpStatus.CREATED);
     }
 

@@ -4,8 +4,8 @@ import com.login.apilogin.domain.Address;
 import com.login.apilogin.exception.BadRequestException;
 import com.login.apilogin.mapper.AddressMapper;
 import com.login.apilogin.repository.AddressRepository;
-import com.login.apilogin.request.AddressReplaceRequestBody;
-import com.login.apilogin.request.AddressRequestBody;
+import com.login.apilogin.request.AddressPutReplaceRequestBody;
+import com.login.apilogin.request.AddressPostRequestBody;
 import com.login.apilogin.service.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +45,12 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     @Transactional
-    public Address save(AddressRequestBody addressRequestBody) {
+    public Address save(AddressPostRequestBody addressRequestBody) {
         return addressRepository.save(AddressMapper.INSTANCE.toAddress(addressRequestBody));
     }
 
     @Override
-    public Address replace(AddressReplaceRequestBody addressReplaceRequestBody) {
+    public Address replace(AddressPutReplaceRequestBody addressReplaceRequestBody) {
         return addressRepository.save(AddressMapper.INSTANCE.toAddress(addressReplaceRequestBody));
     }
 }
