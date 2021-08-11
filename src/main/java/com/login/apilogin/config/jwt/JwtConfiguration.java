@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @ToString
 public class JwtConfiguration {
-    private String loginUrl = "/login/**";
+    private String loginUrl = "**/login/**";
     @NestedConfigurationProperty
     private Header header = new Header();
     private int expiration = 3600;
