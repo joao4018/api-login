@@ -5,6 +5,7 @@ import com.login.apilogin.mapper.AccessMapper;
 import com.login.apilogin.repository.AccessUserRepository;
 import com.login.apilogin.request.AccessPostRequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AccessUserServiceImpl implements UserDetailsService {
     private final AccessUserRepository accessUserRepository;
 
