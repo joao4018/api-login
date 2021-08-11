@@ -18,7 +18,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     protected final JwtConfiguration jwtConfiguration;
-    static final String SIGN_UP_URL = "/signup";
+    static final String SIGN_UP_URL = "**/signup/**";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,14 +31,12 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint((req, resp, e) -> resp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"*/user/signup").permitAll()
+                .antMatchers(HttpMethod.POST,SIGN_UP_URL).permitAll()
                 .antMatchers().permitAll()
-                .antMatchers(jwtConfiguration.getLoginUrl(), "/**/swagger-ui.html").permitAll()
+                .antMatchers(jwtConfiguration.getLoginUrl(), "/**/swagger-ui.html/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/**/swagger-resources/**", "/**/webjars/springfox-swagger-ui/**", "/**/v2/api-docs/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/**/swagger-resources/**", "/**/webjars/springfox-swagger-ui/**", "/**/v2/api-docs/**").permitAll()
-                .antMatchers("/course/v1/admin/**").hasRole("ADMIN");
-//                .antMatchers("/auth/user/**").hasAnyRole("ADMIN", "USER")
- //               .anyRequest().authenticated();
+                .anyRequest().authenticated();
     }
 
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Check(constraints = "role IN ('ROLE_ADMIN', 'ROLE_USER')")
 public class AccessUser implements UserDetails {
 
@@ -40,6 +42,7 @@ public class AccessUser implements UserDetails {
 
     @NotEmpty(message = "The password cannot be empty")
     @NotNull
+    @ToString.Exclude
     private String password;
 
     @CreationTimestamp
