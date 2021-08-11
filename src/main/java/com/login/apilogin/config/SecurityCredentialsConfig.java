@@ -6,7 +6,6 @@ import com.login.apilogin.token.config.SecurityTokenConfig;
 import com.login.apilogin.token.filter.JwtTokenAuthorizationFilter;
 import com.login.apilogin.token.token.converter.TokenConverter;
 import com.login.apilogin.token.token.creator.TokenCreator;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,7 +13,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -70,6 +68,3 @@ public class SecurityCredentialsConfig extends SecurityTokenConfig {
         return delegatingPasswordEncoder;
     }
 }
-
-//        auth.userDetailsService(accessService)
-//                .passwordEncoder(delegatingPasswordEncoder);
