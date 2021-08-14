@@ -8,6 +8,7 @@ import com.login.apilogin.util.DateUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springdoc.api.annotations.ParameterObject;
@@ -32,6 +33,7 @@ import java.util.List;
 @RequestMapping("addresses")
 @Log4j2
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Authorization")
 public class AddressController {
 
     private final DateUtil dateUtil;

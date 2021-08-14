@@ -11,19 +11,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("security")
 @Log4j2
 @RequiredArgsConstructor
 public class AccessUserController {
 
     private final DateUtil dateUtil;
     private final AccessUserServiceImpl accessUserService;
+
+    @PostMapping("/login")
+    @Operation(summary = "Generate Token")
+    public void Login(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
+        throw new IllegalStateException("This method shouldn't be called. It's implemented by Spring Security filters.");
+    }
 
     @PostMapping(path = "/signup")
     @Operation(summary = "Create a new user")
