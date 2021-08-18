@@ -38,6 +38,7 @@ public class AccessUser implements UserDetails {
 
     @NotEmpty(message = "The user name cannot be empty")
     @NotNull
+    @Column(unique = true)
     private String userName;
 
     @NotEmpty(message = "The password cannot be empty")
