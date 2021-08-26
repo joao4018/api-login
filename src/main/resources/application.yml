@@ -1,9 +1,19 @@
 server:
   error:
     include-stacktrace: on_param
-  port: 8082
+  port: 8083
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+    register-with-eureka: true
 
 spring:
+  application:
+    name: auth
   datasource:
     url: jdbc:mysql://localhost:3306/apilogin?&createDatabaseIfNotExists=true
     username: root
