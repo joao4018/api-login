@@ -18,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,7 +30,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Check(constraints = "role IN ('ROLE_ADMIN', 'ROLE_USER')")
 public class AccessUser implements UserDetails {
 
     @Id
@@ -41,6 +41,11 @@ public class AccessUser implements UserDetails {
     @Column(unique = true)
     private String userName;
 
+    @NotEmpty(message = "The user email cannot be empty")
+    @NotNull
+    @Column(unique = true)
+    private String email;
+
     @NotEmpty(message = "The password cannot be empty")
     @NotNull
     @ToString.Exclude
@@ -48,6 +53,22 @@ public class AccessUser implements UserDetails {
 
     @CreationTimestamp
     private LocalDateTime singUpDate;
+
+    @CreationTimestamp
+    private LocalDateTime lastLogin;
+
+    @CreationTimestamp
+    private LocalDateTime currentLogin;
+
+    @CreationTimestamp
+    private LocalDateTime premiumValidate;
+
+    @CreationTimestamp
+    private LocalDateTime lastPayament;
+
+    @CreationTimestamp
+    private LocalDateTime accountValidate;
+
 
     @NotEmpty(message = "The role cannot be empty")
     @NotNull
@@ -67,17 +88,17 @@ public class AccessUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return this.accountValidate.compareTo(LocalDateTime.now()) > 0;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.lastPayament.compareTo(LocalDateTime.now()) > 0;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return this.premiumValidate.compareTo(LocalDateTime.now()) > 0;
     }
 
     @Override
