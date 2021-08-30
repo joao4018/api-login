@@ -18,7 +18,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     protected final JwtConfiguration jwtConfiguration;
-    static final String SIGN_UP_URL = "/signup/";
+    static final String SIGN_UP_URL = "/signup**";
     static final String AUTH_URL = "/login/**";
 
     @Override
