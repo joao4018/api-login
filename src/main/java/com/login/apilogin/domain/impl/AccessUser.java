@@ -52,6 +52,7 @@ public class AccessUser implements UserDetails {
     private String password;
 
     @CreationTimestamp
+    @NotNull
     private LocalDateTime singUpDate;
 
     @CreationTimestamp
@@ -61,12 +62,13 @@ public class AccessUser implements UserDetails {
     private LocalDateTime currentLogin;
 
     @CreationTimestamp
+    @NotNull
     private LocalDateTime premiumValidate;
 
-    @CreationTimestamp
     private LocalDateTime lastPayament;
 
     @CreationTimestamp
+    @NotNull
     private LocalDateTime accountValidate;
 
 
@@ -88,17 +90,20 @@ public class AccessUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.accountValidate.compareTo(LocalDateTime.now()) > 0;
+        return this.accountValidate.isAfter(LocalDateTime.now());
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.lastPayament.compareTo(LocalDateTime.now()) > 0;
+        if (this.lastPayament == null){
+            return false;
+        }
+        return this.lastPayament.isBefore(LocalDateTime.now());
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.premiumValidate.compareTo(LocalDateTime.now()) > 0;
+        return this.premiumValidate.isAfter(LocalDateTime.now());
     }
 
     @Override

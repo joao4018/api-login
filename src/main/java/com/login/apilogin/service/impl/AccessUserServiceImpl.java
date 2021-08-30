@@ -14,7 +14,9 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+
+import static javax.management.timer.Timer.ONE_WEEK;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -28,21 +30,37 @@ public class AccessUserServiceImpl implements UserDetailsService {
     }
 
 
-    public AccessUser createUser(AccessPostRequestBody accessRequestBody){
+    public AccessUser createUser(AccessPostRequestBody accessRequestBody) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         accessRequestBody.setPassword(passwordEncoder.encode(accessRequestBody.getPassword()));
 
         AccessUser accessUser = AccessMapper.INSTANCE.toAccess(accessRequestBody);
 
+        verifyUserRegistered(accessRequestBody);
+
+        return accessUserRepository.save(builderUser(accessUser));
+    }
+
+
+    private AccessUser builderUser(AccessUser accessUser) {
+        return accessUser
+                .toBuilder()
+                .singUpDate(LocalDateTime.now())
+                .accountValidate(LocalDateTime.now().plusDays(ONE_WEEK))
+                .premiumValidate(LocalDateTime.now().plusDays(ONE_WEEK))
+                .build();
+    }
+
+    private void verifyUserRegistered(AccessPostRequestBody accessRequestBody) {
         accessUserRepository.findAccessByUserName(accessRequestBody.getUserName())
                 .ifPresent(user -> {
-                    throw new ServiceException("This user already exits" );
+                    throw new ServiceException("This user already exits");
                 });
 
-        return accessUserRepository.save(accessUser
-                .toBuilder()
-                .role("ROLE_USER")
-                .build());
+        accessUserRepository.findByEmail(accessRequestBody.getEmail())
+                .ifPresent(email -> {
+                    throw new ServiceException("This email already exits");
+                });
     }
 }
