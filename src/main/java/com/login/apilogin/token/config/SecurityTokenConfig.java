@@ -19,7 +19,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     protected final JwtConfiguration jwtConfiguration;
     static final String SIGN_UP_URL = "/signup**";
-    static final String AUTH_URL = "/login/**";
+    static final String AUTH_URL = "/login**";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -34,7 +34,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,SIGN_UP_URL).permitAll()
                 .antMatchers(jwtConfiguration.getLoginUrl()).permitAll()
-                .antMatchers(AUTH_URL).permitAll()
+                .antMatchers(HttpMethod.POST,AUTH_URL).permitAll()
                 .antMatchers("/swagger-ui/**/*").permitAll()
                 .antMatchers("/v3/api-docs/**/*").permitAll()
                 .antMatchers("/v3/api-docs").permitAll()

@@ -71,6 +71,9 @@ public class AccessUser implements UserDetails {
     @NotNull
     private LocalDateTime accountValidate;
 
+    @CreationTimestamp
+    @NotNull
+    private LocalDateTime passwordExpired;
 
     @NotEmpty(message = "The role cannot be empty")
     @NotNull
@@ -90,20 +93,17 @@ public class AccessUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.accountValidate.isAfter(LocalDateTime.now());
+        return this.lastLogin.isBefore(LocalDateTime.now());
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        if (this.lastPayament == null){
-            return false;
-        }
-        return this.lastPayament.isBefore(LocalDateTime.now());
+        return this.accountValidate.isAfter(LocalDateTime.now());
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.premiumValidate.isAfter(LocalDateTime.now());
+        return this.passwordExpired.isAfter(LocalDateTime.now());
     }
 
     @Override

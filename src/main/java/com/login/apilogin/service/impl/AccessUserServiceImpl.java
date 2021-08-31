@@ -47,8 +47,9 @@ public class AccessUserServiceImpl implements UserDetailsService {
         return accessUser
                 .toBuilder()
                 .singUpDate(LocalDateTime.now())
-                .accountValidate(LocalDateTime.now().plusDays(ONE_WEEK))
-                .premiumValidate(LocalDateTime.now().plusDays(ONE_WEEK))
+                .accountValidate(LocalDateTime.now().plusDays(ONE_WEEK)) // 7 days to confirm email
+                .premiumValidate(LocalDateTime.now().plusDays(ONE_WEEK)) // 7 days premium free
+                .passwordExpired(LocalDateTime.now().plusMonths(3l)) // after 90 days password expire
                 .build();
     }
 
