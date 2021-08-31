@@ -1,6 +1,7 @@
 package com.login.apilogin.controller;
 
 import com.login.apilogin.domain.impl.AccessUser;
+import com.login.apilogin.request.AccessLoginPostRequestBody;
 import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
 import com.login.apilogin.util.DateUtil;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED_BY_SPRING_SECURITY_FILTERS;
+
 @RestController
 @Log4j2
 @RequiredArgsConstructor
@@ -25,8 +28,8 @@ public class AccessUserController {
 
     @PostMapping("/login")
     @Operation(summary = "Generate Token")
-    public void Login(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
-        throw new IllegalStateException("This method shouldn't be called. It's implemented by Spring Security filters.");
+    public void Login(@RequestBody @Valid AccessLoginPostRequestBody accessLoginPostRequestBody) {
+        throw new IllegalStateException(IMPLEMENTED_BY_SPRING_SECURITY_FILTERS);
     }
 
     @PostMapping(path = "/signup")
