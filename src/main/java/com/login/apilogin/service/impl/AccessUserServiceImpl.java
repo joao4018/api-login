@@ -29,7 +29,6 @@ public class AccessUserServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Access user not found!"));
     }
 
-
     public AccessUser createUser(AccessPostRequestBody accessRequestBody) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
@@ -42,14 +41,13 @@ public class AccessUserServiceImpl implements UserDetailsService {
         return accessUserRepository.save(builderUser(accessUser));
     }
 
-
     private AccessUser builderUser(AccessUser accessUser) {
         return accessUser
                 .toBuilder()
                 .singUpDate(LocalDateTime.now())
                 .accountValidate(LocalDateTime.now().plusDays(ONE_WEEK)) // 7 days to confirm email
                 .premiumValidate(LocalDateTime.now().plusDays(ONE_WEEK)) // 7 days premium free
-                .passwordExpired(LocalDateTime.now().plusMonths(3l)) // after 90 days password expire
+                .passwordExpired(LocalDateTime.now().plusMonths(3L)) // after 90 days password expire
                 .build();
     }
 

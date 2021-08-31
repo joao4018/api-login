@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -35,6 +36,9 @@ public class AccessUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    private PersonalData personalData;
 
     @NotEmpty(message = "The user name cannot be empty")
     @NotNull
@@ -93,7 +97,7 @@ public class AccessUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.lastLogin.isBefore(LocalDateTime.now());
+        return true;
     }
 
     @Override
