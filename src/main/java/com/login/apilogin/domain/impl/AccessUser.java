@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -59,23 +60,19 @@ public class AccessUser implements UserDetails {
     @NotNull
     private LocalDateTime singUpDate;
 
-    @CreationTimestamp
     private LocalDateTime lastLogin;
 
-    @CreationTimestamp
     private LocalDateTime currentLogin;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     @NotNull
     private LocalDateTime premiumValidate;
 
     private LocalDateTime lastPayament;
 
-    @CreationTimestamp
     @NotNull
     private LocalDateTime accountValidate;
 
-    @CreationTimestamp
     @NotNull
     private LocalDateTime passwordExpired;
 
