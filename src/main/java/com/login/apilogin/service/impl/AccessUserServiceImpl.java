@@ -1,5 +1,6 @@
 package com.login.apilogin.service.impl;
 
+import com.login.apilogin.constants.SystemConstantsExceptions;
 import com.login.apilogin.domain.impl.AccessUser;
 import com.login.apilogin.domain.impl.PersonalData;
 import com.login.apilogin.mapper.AccessMapper;
@@ -22,6 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
+import static com.login.apilogin.constants.SystemConstantsExceptions.ACCESS_USER_NOT_FOUND;
+import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_EMAIL_ALREADY_EXITS;
+import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_USER_ALREADY_EXITS;
 import static javax.management.timer.Timer.ONE_WEEK;
 
 @Service
@@ -34,7 +38,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) {
         return accessUserRepository.findAccessByUserName(userName)
-                .orElseThrow(() -> new UsernameNotFoundException("Access user not found!"));
+                .orElseThrow(() -> new UsernameNotFoundException(ACCESS_USER_NOT_FOUND));
     }
 
     public AccessUser createUser(AccessPostRequestBody accessRequestBody) {
@@ -58,7 +62,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
     private AccessUser builderAndUpdatePersonalData(PersonalData personalData,String username) {
         AccessUser accessUser = accessUserRepository.findAccessByUserName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Access user not found!"));
+                .orElseThrow(() -> new UsernameNotFoundException(ACCESS_USER_NOT_FOUND));
         return accessUser
                 .toBuilder()
                 .personalData(personalData)
@@ -78,12 +82,12 @@ public class AccessUserServiceImpl implements UserDetailsService {
     private void verifyUserRegistered(AccessPostRequestBody accessRequestBody) {
         accessUserRepository.findAccessByUserName(accessRequestBody.getUserName())
                 .ifPresent(user -> {
-                    throw new ServiceException("This user already exits");
+                    throw new ServiceException(THIS_USER_ALREADY_EXITS);
                 });
 
         accessUserRepository.findByEmail(accessRequestBody.getEmail())
                 .ifPresent(email -> {
-                    throw new ServiceException("This email already exits");
+                    throw new ServiceException(THIS_EMAIL_ALREADY_EXITS);
                 });
     }
 }
