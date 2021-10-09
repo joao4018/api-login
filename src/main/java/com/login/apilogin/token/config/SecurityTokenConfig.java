@@ -39,6 +39,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/**/*").permitAll()
                 .antMatchers("/v3/api-docs/**/*").permitAll()
                 .antMatchers("/v3/api-docs").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .anyRequest()
                 .authenticated();
     }

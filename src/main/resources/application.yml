@@ -23,3 +23,9 @@ spring:
       ddl-auto: update
     open-in-view: false # to turn off a warning while the running
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
