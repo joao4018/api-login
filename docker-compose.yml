@@ -10,7 +10,9 @@ services:
     volumes:
     - './apilogin_data:/var/lib/mysql'
 
+
   prometheus:
+    user: root
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
