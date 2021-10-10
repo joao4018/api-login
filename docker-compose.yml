@@ -1,5 +1,6 @@
 version: '3.1'
 services:
+
   db:
     image: mysql
     container_name: mysql
@@ -9,7 +10,6 @@ services:
     - "3306:3306"
     volumes:
     - './apilogin_data:/var/lib/mysql'
-
 
   prometheus:
     user: root
@@ -21,5 +21,12 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yml"
     ports:
       - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+
 volumes:
   apilogin:
