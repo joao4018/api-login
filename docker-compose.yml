@@ -9,5 +9,15 @@ services:
     - "3306:3306"
     volumes:
     - './apilogin_data:/var/lib/mysql'
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - "./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
 volumes:
   apilogin:
