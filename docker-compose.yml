@@ -7,15 +7,20 @@ x-database-variables: &database-variables
 
 services:
 
-  db:
-    image: mysql
-    container_name: mysql
+  postgres:
+    image: postgres:10.5
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
     ports:
-    - "3306:3306"
+      - '5438:5432'
     volumes:
-    - './apilogin_data:/var/lib/mysql'
+      - ./postgres-data:/var/lib/apilogin/data
     mem_limit: 512m
 
   prometheus:
@@ -35,13 +40,13 @@ services:
     ports:
       - "3000:3000"
 
-  api-login:
-    image: joao4018/api-login:latest
-    ports:
-      - "8083:8083"
-    environment:
-      <<: *database-variables
-    mem_limit: 512m
+#  api-login:
+#    image: joao4018/api-login:latest
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      <<: *database-variables
+#    mem_limit: 512m
 
 volumes:
   apilogin:

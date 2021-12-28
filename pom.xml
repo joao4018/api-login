@@ -17,6 +17,7 @@
     <description>Projeto desenvolvido para facilitar a criação de api de login</description>
 
     <properties>
+        <postgreSQL.version>42.2.8</postgreSQL.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
         <java.version>11</java.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
@@ -30,6 +31,13 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgreSQL.version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
@@ -125,10 +133,6 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
