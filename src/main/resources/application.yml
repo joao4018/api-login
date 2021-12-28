@@ -1,7 +1,5 @@
 server:
-  error:
-    include-stacktrace: on_param
-  port: ${PORT:8080}
+  port: $PORT
 
 #eureka:
 #  instance:
