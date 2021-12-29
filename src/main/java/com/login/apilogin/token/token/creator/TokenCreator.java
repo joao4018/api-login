@@ -84,6 +84,7 @@ public class TokenCreator {
                         .collect(toList()))
                 .claim("userId", applicationUser.getId())
                 .claim("lastLogin", applicationUser.getLastLogin())
+                .claim("email", applicationUser.getEmail())
                 .issuer("github.com/all-it-gives-Software-Inc")
                 .issueTime(new Date())
                 .expirationTime(new Date(System.currentTimeMillis() + (jwtConfiguration.getExpiration() * 1000)))
