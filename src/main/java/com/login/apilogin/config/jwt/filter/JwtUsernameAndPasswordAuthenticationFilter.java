@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.login.apilogin.config.jwt.JwtConfiguration;
 import com.login.apilogin.domain.impl.AccessUser;
 import com.login.apilogin.response.LoginPostResponseBody;
+import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.token.token.creator.TokenCreator;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +39,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         log.info("Attempting authentication. . .");
         AccessUser applicationUser = new ObjectMapper().readValue(request.getInputStream(), AccessUser.class);
 
-        if (applicationUser == null)
-            throw new UsernameNotFoundException("Unable to retrieve the username or password");
+        if (applicationUser == null) throw new UsernameNotFoundException("Unable to retrieve the username or password");
 
         log.info("Creating the authentication object for the user '{}' and calling UserDetailServiceImpl loadUserByUsername", applicationUser.getUsername());
 
@@ -63,10 +63,17 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
 
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(LoginPostResponseBody.builder().token(encryptedToken).build());
+//        String json = mapper.writeValueAsString();
+        String teste = mapper.writeValueAsString(ResponseBody
+                .builder()
+                .data(LoginPostResponseBody
+                        .builder()
+                        .token(encryptedToken)
+                        .build())
+                .build());
 
         response.addHeader("Access-Control-Expose-Headers", "XSRF-TOKEN, " + jwtConfiguration.getHeader().getName());
-        response.getWriter().write(json);       // Write response body.
+        response.getWriter().write(teste);       // Write response body.
         response.addHeader(jwtConfiguration.getHeader().getName(), jwtConfiguration.getHeader().getPrefix() + encryptedToken);
     }
 
