@@ -3,6 +3,7 @@ package com.login.apilogin.config.jwt.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.login.apilogin.config.jwt.JwtConfiguration;
 import com.login.apilogin.domain.impl.AccessUser;
+import com.login.apilogin.response.LoginPostResponseBody;
 import com.login.apilogin.token.token.creator.TokenCreator;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.RequiredArgsConstructor;
@@ -60,8 +61,12 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         log.info("Token generated successfully, adding it to the response header");
 
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(LoginPostResponseBody.builder().token(encryptedToken).build());
+
         response.addHeader("Access-Control-Expose-Headers", "XSRF-TOKEN, " + jwtConfiguration.getHeader().getName());
-        response.getWriter().write(jwtConfiguration.getHeader().getPrefix() + encryptedToken);       // Write response body.
+        response.getWriter().write(json);       // Write response body.
         response.addHeader(jwtConfiguration.getHeader().getName(), jwtConfiguration.getHeader().getPrefix() + encryptedToken);
     }
 
