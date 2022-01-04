@@ -66,6 +66,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 //        String json = mapper.writeValueAsString();
         String teste = mapper.writeValueAsString(ResponseBody
                 .builder()
+                        .status(true)
+                        .message("Login Success!")
                 .data(LoginPostResponseBody
                         .builder()
                         .token(encryptedToken)

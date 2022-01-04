@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder(toBuilder = true)
 public class ResponseBody {
 
-    private String status;
+    private Boolean status;
     private String message;
     private Object data;
 
