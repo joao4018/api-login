@@ -63,7 +63,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
 
         ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString();
         String teste = mapper.writeValueAsString(ResponseBody
                 .builder()
                         .status(true)
