@@ -1,5 +1,6 @@
 package com.login.apilogin.config.jwt.filter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.login.apilogin.config.jwt.JwtConfiguration;
 import com.login.apilogin.domain.impl.AccessUser;
@@ -32,6 +33,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
     private final AuthenticationManager authenticationManager;
     private final JwtConfiguration jwtConfiguration;
     private final TokenCreator tokenCreator;
+    private final ObjectMapper mapper = new ObjectMapper();
+
 
     @Override
     @SneakyThrows
@@ -61,21 +64,23 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         log.info("Token generated successfully, adding it to the response header");
 
+        String userResponse = getUserResponse(encryptedToken);
 
-        ObjectMapper mapper = new ObjectMapper();
-        String teste = mapper.writeValueAsString(ResponseBody
+        response.addHeader("Access-Control-Expose-Headers", "XSRF-TOKEN, " + jwtConfiguration.getHeader().getName());
+        response.getWriter().write(userResponse);       // Write response body.
+        response.addHeader(jwtConfiguration.getHeader().getName(), jwtConfiguration.getHeader().getPrefix() + encryptedToken);
+    }
+
+    private String getUserResponse(String encryptedToken) throws JsonProcessingException {
+        return mapper.writeValueAsString(ResponseBody
                 .builder()
-                        .status(true)
-                        .message("Login Success!")
+                .status(true)
+                .message("Login Success!")
                 .data(LoginPostResponseBody
                         .builder()
                         .token(encryptedToken)
                         .build())
                 .build());
-
-        response.addHeader("Access-Control-Expose-Headers", "XSRF-TOKEN, " + jwtConfiguration.getHeader().getName());
-        response.getWriter().write(teste);       // Write response body.
-        response.addHeader(jwtConfiguration.getHeader().getName(), jwtConfiguration.getHeader().getPrefix() + encryptedToken);
     }
 
 }
