@@ -40,6 +40,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v3/api-docs/**/*").permitAll()
                 .antMatchers("/v3/api-docs").permitAll()
                 .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/api/v1/query/**").permitAll()
                 .anyRequest()
                 .authenticated();
     }
