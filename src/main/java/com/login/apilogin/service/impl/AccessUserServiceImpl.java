@@ -2,6 +2,7 @@ package com.login.apilogin.service.impl;
 
 import com.login.apilogin.domain.impl.AccessUser;
 import com.login.apilogin.domain.impl.PersonalData;
+import com.login.apilogin.exception.BadRequestException;
 import com.login.apilogin.mapper.AccessMapper;
 import com.login.apilogin.mapper.PersonalDataMapper;
 import com.login.apilogin.repository.AccessUserRepository;
@@ -61,7 +62,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
     private AccessUser builderAndUpdatePersonalData(PersonalData personalData, String username) {
         AccessUser accessUser = accessUserRepository.findAccessByUserName(username)
-                .orElseThrow(() -> new UsernameNotFoundException(ACCESS_USER_NOT_FOUND));
+                .orElseThrow(() -> new BadRequestException(ACCESS_USER_NOT_FOUND));
         return accessUser
                 .toBuilder()
                 .personalData(personalData)
