@@ -82,12 +82,12 @@ public class AccessUserServiceImpl implements UserDetailsService {
     private void verifyUserRegistered(AccessPostRequestBody accessRequestBody) {
         accessUserRepository.findAccessByUserName(accessRequestBody.getUserName())
                 .ifPresent(user -> {
-                    throw new ServiceException(THIS_USER_ALREADY_EXITS);
+                    throw new BadRequestException(THIS_USER_ALREADY_EXITS);
                 });
 
         accessUserRepository.findByEmail(accessRequestBody.getEmail())
                 .ifPresent(email -> {
-                    throw new ServiceException(THIS_EMAIL_ALREADY_EXITS);
+                    throw new BadRequestException(THIS_EMAIL_ALREADY_EXITS);
                 });
     }
 }
