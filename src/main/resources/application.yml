@@ -1,23 +1,5 @@
 server:
-  port: $PORT
-
-spring:
-  application:
-    name: auth
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-18-235-235-165.compute-1.amazonaws.com:5432/d6buh0t4uhcjqk
-    username: cexktsioxbfaef
-    password: 0779efb7fe0498c4472d338d66e899cd2420ba228fc0babcbc52deb8804d748c
-  # JPA properties
-  jpa:
-    hibernate:
-      ddl-auto: update # When you launch the application for the first time - switch "none" at "create"
-    show-sql: true
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    open-in-view: false
-    generate-ddl: true
+  port: 8084
 
 eureka:
   instance:
@@ -28,6 +10,27 @@ eureka:
       defaultZone: https://secret-anchorage-03030.herokuapp.com/eureka/
     fetch-registry: true
     register-with-eureka: true
+
+
+spring:
+  application:
+    name: auths
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-18-235-235-165.compute-1.amazonaws.com:5432/d6buh0t4uhcjqk
+    username: cexktsioxbfaef
+    password: 0779efb7fe0498c4472d338d66e899cd2420ba228fc0babcbc52deb8804d748c
+
+  # JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: update # When you launch the application for the first time - switch "none" at "create"
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: true
+
 
 logging:
   level:
@@ -46,6 +49,8 @@ info:
   website: https://www.linkedin.com/in/joao4018/
   github: https://github.com/joao4018
 
-
+ribbon:
+  ReadTimeout: 2147483647
+  ConnectTimeout: 2147483647
 
 
