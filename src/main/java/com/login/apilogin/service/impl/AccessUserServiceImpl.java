@@ -69,6 +69,11 @@ public class AccessUserServiceImpl implements UserDetailsService {
                 .build();
     }
 
+    public AccessUser searchUserByEmail(String email) {
+        return accessUserRepository.findByEmail(email)
+                .orElseThrow(() -> new BadRequestException(email));
+    }
+
     private AccessUser builderUser(AccessUser accessUser) {
         return accessUser
                 .toBuilder()
