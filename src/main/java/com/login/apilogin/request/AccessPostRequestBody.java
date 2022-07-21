@@ -10,7 +10,7 @@ public class AccessPostRequestBody {
 
     @NotEmpty(message = "The username cannot be empty")
     @Schema(description = "This is the nickname to signup ", example = "fulano")
-    private String userName;
+    private String username;
 
     @NotEmpty(message = "The password cannot be empty")
     @Schema(description = "This is the password to signup ", example = "12345")

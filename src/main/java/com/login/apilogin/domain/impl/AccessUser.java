@@ -44,7 +44,7 @@ public class AccessUser implements UserDetails {
     @NotEmpty(message = "The user name cannot be empty")
     @NotNull
     @Column(unique = true)
-    private String userName;
+    private String username;
 
     @NotEmpty(message = "The user email cannot be empty")
     @NotNull
@@ -89,7 +89,7 @@ public class AccessUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.userName;
+        return this.username;
     }
 
     @Override

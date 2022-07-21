@@ -3,6 +3,7 @@ package com.login.apilogin.config.jwt;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,8 @@ public class JwtConfiguration {
     @NestedConfigurationProperty
     private Header header = new Header();
     private int expiration = 3600;
-    private String privateKey = "qxBEEQv7E8aviX1KUcdOiF5ve5COUPAr";
+    @Value("${spring.encr}")
+    private String privateKey;
     private String type = "encrypted";
 
     @Getter

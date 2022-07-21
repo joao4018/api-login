@@ -33,7 +33,7 @@ public class SecurityContextUtil {
             AccessUser applicationUser = AccessUser
                     .builder()
                     .id(claims.getLongClaim("userId"))
-                    .userName(username)
+                    .username(username)
                     .role(String.join(",", authorities))
                     .build();
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(applicationUser, null, createAuthorities(authorities));
