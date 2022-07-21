@@ -9,6 +9,7 @@ import com.login.apilogin.repository.AccessUserRepository;
 import com.login.apilogin.repository.PersonalDataRepository;
 import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
+import com.login.apilogin.response.SignupPostResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,8 @@ public class AccessUserServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(ACCESS_USER_NOT_FOUND));
     }
 
-    public AccessUser createUser(AccessPostRequestBody accessRequestBody) {
+    @Transactional
+    public SignupPostResponseBody createUser(AccessPostRequestBody accessRequestBody) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         accessRequestBody.setPassword(passwordEncoder.encode(accessRequestBody.getPassword()));
@@ -50,7 +52,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
         verifyUserRegistered(accessRequestBody);
 
-        return accessUserRepository.save(builderUser(accessUser));
+        return AccessMapper.INSTANCE.toSignupPostResponseBody(accessUserRepository.save(builderUser(accessUser)));
     }
 
     @Transactional

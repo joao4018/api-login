@@ -11,6 +11,7 @@ server:
 
 
 spring:
+  encr: xxpawt2WLOEJRPmQMfIC4dZxoDh6cRJX
   application:
     name: auth
   datasource:

@@ -4,6 +4,7 @@ import com.login.apilogin.domain.impl.AccessUser;
 import com.login.apilogin.request.AccessLoginPostRequestBody;
 import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
+import com.login.apilogin.response.SignupPostResponseBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
 import com.login.apilogin.util.DateUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,6 +22,9 @@ import javax.validation.Valid;
 
 import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED_BY_SPRING_SECURITY_FILTERS;
 
+/**
+ * @author joaocarlos
+ */
 @RestController
 @Log4j2
 @RequiredArgsConstructor
@@ -37,7 +41,7 @@ public class AccessUserController {
 
     @PostMapping(path = "/signup")
     @Operation(summary = "Create a new user")
-    public ResponseEntity<AccessUser> save(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
+    public ResponseEntity<SignupPostResponseBody> save(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
         return new ResponseEntity<>(accessUserService.createUser(accessRequestBody), HttpStatus.CREATED);
     }
 
