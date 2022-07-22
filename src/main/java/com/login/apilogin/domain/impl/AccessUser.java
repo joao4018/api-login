@@ -55,7 +55,6 @@ public class AccessUser implements UserDetails {
     @NotEmpty(message = "The password cannot be empty")
     @NotNull
     @ToString.Exclude
-    @JsonIgnore
     private String password;
 
     @CreationTimestamp
