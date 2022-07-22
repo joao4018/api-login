@@ -37,6 +37,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,AUTH_URL).permitAll()
                 .antMatchers(HttpMethod.POST,"/registerPersonalData**").permitAll()
                 .antMatchers(HttpMethod.GET,"/user**").permitAll()
+                .antMatchers(HttpMethod.POST, "/generateAccessCode**").permitAll()
                 .antMatchers("/swagger-ui/**/*").permitAll()
                 .antMatchers("/v3/api-docs/**/*").permitAll()
                 .antMatchers("/v3/api-docs").permitAll()
