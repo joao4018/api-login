@@ -1,3 +1,5 @@
+![example workflow](https://github.com/joao4018/api-login/actions/workflows/maven.yml/badge.svg?branch=master)
+
 # api-login
 
 Commits will only be accepted with the tags listed below in their prefix
