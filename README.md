@@ -22,7 +22,7 @@ For further reference, please consider the following sections:
 
 
 
-=== spring-boot
+# spring-boot
 The main library providing features that support the other parts of Spring Boot. These include:
 
 * The `SpringApplication` class, providing static convenience methods that can be used to write a stand-alone Spring Application.
@@ -33,7 +33,7 @@ The main library providing features that support the other parts of Spring Boot.
 
 
 
-=== spring-boot-autoconfigure
+# spring-boot-autoconfigure
 Spring Boot can configure large parts of typical applications based on the content of their classpath.
 A single `@EnableAutoConfiguration` annotation triggers auto-configuration of the Spring context.
 
@@ -42,20 +42,14 @@ Auto-configuration will always back away as the user starts to define their own 
 
 
 
-=== spring-boot-starters
+# spring-boot-starters
 Starters are a set of convenient dependency descriptors that you can include in your application.
 You get a one-stop shop for all the Spring and related technology you need without having to hunt through sample code and copy-paste loads of dependency descriptors.
 For example, if you want to get started using Spring and JPA for database access, include the `spring-boot-starter-data-jpa` dependency in your project, and you are good to go.
 
 
 
-=== spring-boot-cli
-The Spring command-line application compiles and runs Groovy source, allowing you to write the absolute minimum amount of code to get an application running.
-Spring CLI can also watch files, automatically recompiling and restarting when they change.
-
-
-
-=== spring-boot-actuator
+# spring-boot-actuator
 Actuator endpoints let you monitor and interact with your application.
 Spring Boot Actuator provides the infrastructure required for actuator endpoints.
 It contains annotation support for actuator endpoints.
@@ -63,7 +57,7 @@ This module provides many endpoints, including the `HealthEndpoint`, `Environmen
 
 
 
-=== spring-boot-actuator-autoconfigure
+# spring-boot-actuator-autoconfigure
 This provides auto-configuration for actuator endpoints based on the content of the classpath and a set of properties.
 For instance, if Micrometer is on the classpath, it will auto-configure the `MetricsEndpoint`.
 It contains configuration to expose endpoints over HTTP or JMX.
@@ -71,25 +65,12 @@ Just like Spring Boot AutoConfigure, this will back away as the user starts to d
 
 
 
-=== spring-boot-test
+# spring-boot-test
 This module contains core items and annotations that can be helpful when testing your application.
 
 
 
-=== spring-boot-test-autoconfigure
-Like other Spring Boot auto-configuration modules, spring-boot-test-autoconfigure provides auto-configuration for tests based on the classpath.
-It includes many annotations that can automatically configure a slice of your application that needs to be tested.
-
-
-
-=== spring-boot-loader
+# spring-boot-loader
 Spring Boot Loader provides the secret sauce that allows you to build a single jar file that can be launched using `java -jar`.
 Generally, you will not need to use `spring-boot-loader` directly but work with the link:spring-boot-project/spring-boot-tools/spring-boot-gradle-plugin[Gradle] or link:spring-boot-project/spring-boot-tools/spring-boot-maven-plugin[Maven] plugin instead.
-
-
-
-=== spring-boot-devtools
-The spring-boot-devtools module provides additional development-time features, such as automatic restarts, for a smoother application development experience.
-Developer tools are automatically disabled when running a fully packaged application.
-
 
