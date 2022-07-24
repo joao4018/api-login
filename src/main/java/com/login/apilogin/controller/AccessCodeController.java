@@ -1,6 +1,8 @@
 package com.login.apilogin.controller;
 
+import com.login.apilogin.domain.impl.AccessCode;
 import com.login.apilogin.request.AccessCodePostRequestBody;
+import com.login.apilogin.response.GenerateCodeResponseBody;
 import com.login.apilogin.service.impl.AccessCodeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +22,14 @@ public class AccessCodeController {
 
     @PostMapping(path = "/generateAccessCode")
     @Operation(summary = "Create a new access code")
-    public ResponseEntity<HttpStatus> save(@RequestBody @Valid AccessCodePostRequestBody accessCodeRequestBody) {
-        accessCodeService.createAccessCode(accessCodeRequestBody);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<GenerateCodeResponseBody> save(@RequestBody @Valid AccessCodePostRequestBody accessCodeRequestBody) {
+        AccessCode accessCode = accessCodeService.createAccessCode(accessCodeRequestBody);
+        return new ResponseEntity<>(new GenerateCodeResponseBody(accessCode.getCode()), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/validateAccessCode")
     @Operation(summary = "Validate a new access code")
-    public ResponseEntity<HttpStatus> save(@RequestBody @Valid String code) {
+    public ResponseEntity<HttpStatus> validate(@RequestBody @Valid String code) {
         accessCodeService.validateAccessCode(code);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
