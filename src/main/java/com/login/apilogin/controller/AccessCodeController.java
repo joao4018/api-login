@@ -24,4 +24,11 @@ public class AccessCodeController {
         accessCodeService.createAccessCode(accessCodeRequestBody);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PostMapping(path = "/validateAccessCode")
+    @Operation(summary = "Validate a new access code")
+    public ResponseEntity<HttpStatus> save(@RequestBody @Valid String code) {
+        accessCodeService.validateAccessCode(code);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

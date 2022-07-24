@@ -8,6 +8,7 @@ import com.login.apilogin.mapper.PersonalDataMapper;
 import com.login.apilogin.repository.AccessUserRepository;
 import com.login.apilogin.repository.PersonalDataRepository;
 import com.login.apilogin.request.AccessPostRequestBody;
+import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
 import com.login.apilogin.response.SignupPostResponseBody;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +23,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static com.login.apilogin.constants.SystemConstantsExceptions.ACCESS_USER_NOT_FOUND;
 import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_EMAIL_ALREADY_EXITS;
+import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_EMAIL_NOT_EXISTS;
 import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_USER_ALREADY_EXITS;
 import static javax.management.timer.Timer.ONE_WEEK;
 
@@ -35,6 +38,8 @@ public class AccessUserServiceImpl implements UserDetailsService {
     private final AccessUserRepository accessUserRepository;
 
     private final PersonalDataRepository personalDataRepository;
+
+    private final AccessCodeServiceImpl accessCodeService;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -53,6 +58,20 @@ public class AccessUserServiceImpl implements UserDetailsService {
         verifyUserRegistered(accessRequestBody);
 
         return AccessMapper.INSTANCE.toSignupPostResponseBody(accessUserRepository.save(builderUser(accessUser)));
+    }
+
+    @Transactional
+    public SignupPostResponseBody recoveryPassword(AccessRecoveryPostRequestBody accessRequestBody) {
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        accessCodeService.validateByEmailAndCode(accessRequestBody.getEmail(), accessRequestBody.getCode());
+
+        AccessUser user = accessUserRepository.findByEmail(accessRequestBody.getEmail())
+                .orElseThrow(() -> new BadRequestException(THIS_EMAIL_NOT_EXISTS));
+
+        user.setPassword(passwordEncoder.encode(accessRequestBody.getPassword()));
+
+        return AccessMapper.INSTANCE.toSignupPostResponseBody(accessUserRepository.save(user));
     }
 
     @Transactional
@@ -97,4 +116,5 @@ public class AccessUserServiceImpl implements UserDetailsService {
                     throw new BadRequestException(THIS_EMAIL_ALREADY_EXITS);
                 });
     }
+
 }

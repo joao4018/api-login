@@ -31,6 +31,9 @@ public class AccessCode {
     @NotNull
     private String code;
 
+    @NotNull
+    private Boolean validated;
+
     @CreationTimestamp
     @NotNull
     private LocalDateTime expiryDate;

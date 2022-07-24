@@ -6,6 +6,8 @@ public class SystemConstantsExceptions {
             "This method shouldn't be called. It's implemented by Spring Security filters.";
 
     public static final String ACCESS_USER_NOT_FOUND = "Access user not found!";
-    public static final String THIS_USER_ALREADY_EXITS = "This user already exits";
-    public static final String THIS_EMAIL_ALREADY_EXITS = "This email already exits";
+    public static final String THIS_USER_ALREADY_EXITS = "This user already exists";
+    public static final String THIS_EMAIL_ALREADY_EXITS = "This email already exists";
+    public static final String THIS_CODE_NOT_EXITS = "This code not exists";
+    public static final String THIS_EMAIL_NOT_EXISTS = "This email not exists";
 }

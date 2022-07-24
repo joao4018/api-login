@@ -11,5 +11,6 @@ import java.util.List;
 public interface AccessCodeService {
 
     AccessCode createAccessCode(AccessCodePostRequestBody accessCodeRequestBody);
+    AccessCode validateAccessCode(String code);
 
 }

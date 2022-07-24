@@ -3,6 +3,7 @@ package com.login.apilogin.controller;
 import com.login.apilogin.domain.impl.AccessUser;
 import com.login.apilogin.request.AccessLoginPostRequestBody;
 import com.login.apilogin.request.AccessPostRequestBody;
+import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
 import com.login.apilogin.response.SignupPostResponseBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
@@ -43,6 +44,13 @@ public class AccessUserController {
     @Operation(summary = "Create a new user")
     public ResponseEntity<SignupPostResponseBody> save(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
         return new ResponseEntity<>(accessUserService.createUser(accessRequestBody), HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/recoveryPassword")
+    @Operation(summary = "Recovery a user")
+    public ResponseEntity<SignupPostResponseBody> recovery(
+            @RequestBody @Valid AccessRecoveryPostRequestBody accessRequestBody) {
+        return new ResponseEntity<>(accessUserService.recoveryPassword(accessRequestBody), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/registerPersonalData")
