@@ -3,6 +3,7 @@ server:
 
 eureka:
   instance:
+    non-secure-port: 80
     hostname: api-login-all-it.herokuapp.com
   client:
     service-url:
