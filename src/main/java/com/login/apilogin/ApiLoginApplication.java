@@ -9,6 +9,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCusto
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 //import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
 import static com.login.apilogin.constants.Asg.Asg.AUTHOR_LINKEDIN;
@@ -18,7 +19,7 @@ import static com.login.apilogin.constants.Asg.Asg.AUTHOR_SIGNATURE;
 @SpringBootApplication
 @Log4j2
 @EnableConfigurationProperties(value = JwtConfiguration.class)
-//@EnableEurekaClient
+@EnableEurekaClient
 public class ApiLoginApplication {
 
     public static void main(String[] args) {
