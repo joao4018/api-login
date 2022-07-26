@@ -50,6 +50,8 @@ info:
   website: https://www.linkedin.com/in/joao4018/
   github: https://github.com/joao4018
 
+scheme: [http,https]
+
 ribbon:
   ReadTimeout: 2147483647
   ConnectTimeout: 2147483647
