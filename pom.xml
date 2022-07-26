@@ -18,7 +18,7 @@
 
     <properties>
         <postgreSQL.version>42.3.6</postgreSQL.version>
-        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
         <java.version>11</java.version>
         <org.mapstruct.version>1.5.1.Final</org.mapstruct.version>
         <springdoc-openapi-data-rest.version>1.6.9</springdoc-openapi-data-rest.version>
