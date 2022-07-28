@@ -43,7 +43,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return accessUserRepository.findAccessByUsername(username)
+        return accessUserRepository.findAccessByUsernameOrEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(ACCESS_USER_NOT_FOUND));
     }
 
@@ -82,7 +82,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
     }
 
     private AccessUser builderAndUpdatePersonalData(PersonalData personalData, String username) {
-        AccessUser accessUser = accessUserRepository.findAccessByUsername(username)
+        AccessUser accessUser = accessUserRepository.findAccessByUsernameOrEmail(username)
                 .orElseThrow(() -> new BadRequestException(ACCESS_USER_NOT_FOUND));
         return accessUser
                 .toBuilder()
@@ -106,7 +106,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
     }
 
     private void verifyUserRegistered(AccessPostRequestBody accessRequestBody) {
-        accessUserRepository.findAccessByUsername(accessRequestBody.getUsername())
+        accessUserRepository.findAccessByUsernameOrEmail(accessRequestBody.getUsername())
                 .ifPresent(user -> {
                     throw new BadRequestException(THIS_USER_ALREADY_EXITS);
                 });
