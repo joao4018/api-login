@@ -69,4 +69,12 @@ public class AccessUserController {
        return new ResponseEntity<>(accessUserService.searchUserByEmail(email), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/validateUserAccount")
+    @Operation(summary = "validate an existing user")
+    public ResponseEntity<HttpStatus> validateUserAccount(
+        @RequestParam String email ) {
+        accessUserService.validateUserAccount(email);
+       return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
 }

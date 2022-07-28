@@ -95,6 +95,13 @@ public class AccessUserServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new BadRequestException(email));
     }
 
+    public void validateUserAccount(String email) {
+        AccessUser accessUser = accessUserRepository.findByEmail(email)
+                .orElseThrow(() -> new BadRequestException(email));
+        accessUser.setAccountValidate(accessUser.getAccountValidate().plusMonths(72));
+        accessUserRepository.save(accessUser);
+    }
+
     private AccessUser builderUser(AccessUser accessUser) {
         return accessUser
                 .toBuilder()
