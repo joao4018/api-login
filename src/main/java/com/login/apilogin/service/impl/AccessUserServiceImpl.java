@@ -30,6 +30,7 @@ import static com.login.apilogin.constants.SystemConstantsExceptions.ACCESS_USER
 import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_EMAIL_ALREADY_EXITS;
 import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_EMAIL_NOT_EXISTS;
 import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_USER_ALREADY_EXITS;
+import static javax.management.timer.Timer.ONE_DAY;
 import static javax.management.timer.Timer.ONE_WEEK;
 
 @Service
@@ -106,7 +107,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
         return accessUser
                 .toBuilder()
                 .singUpDate(LocalDateTime.now())
-                .accountValidate(LocalDateTime.now().plusDays(TimeUnit.MILLISECONDS.toDays(ONE_WEEK))) // 7 days to confirm email
+                .accountValidate(LocalDateTime.now().plusDays(TimeUnit.MILLISECONDS.toDays(ONE_DAY))) // 7 days to confirm email
                 .premiumValidate(LocalDateTime.now().plusDays(TimeUnit.MILLISECONDS.toDays(ONE_WEEK))) // 7 days premium free
                 .passwordExpired(LocalDateTime.now().plusMonths(3L)) // after 90 days password expire
                 .build();
