@@ -107,18 +107,22 @@ public class AccessUserServiceImpl implements UserDetailsService {
                         .count(1L)
                         .build());
 
+        validateLimitEmailSent(accessEmail);
+
         if (!accessEmail.getRegistryDate().equals(now)){
             accessEmail.setCount(accessEmail.getCount() + 1L);
         }
 
-        accessEmail = accessEmailRepository.save(accessEmail);
-
-        if (accessEmail.getCount() > 2L){
-            throw new ServiceException(EMAIL_ALREDY_SENT);
-        }
+        accessEmailRepository.save(accessEmail);
 
         return accessUser;
 
+    }
+
+    private void validateLimitEmailSent(AccessEmail accessEmail) {
+        if (accessEmail.getCount() > 2L){
+            throw new ServiceException(EMAIL_ALREDY_SENT);
+        }
     }
 
     public void validateUserAccount(String email) {
