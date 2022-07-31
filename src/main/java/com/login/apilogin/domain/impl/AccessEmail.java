@@ -20,10 +20,9 @@ import java.time.LocalDateTime;
 @Entity(name = "API_ACCESS_EMAIL")
 @Getter
 @Setter
-@RequiredArgsConstructor
-@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 @ToString
 public class AccessEmail {
 
