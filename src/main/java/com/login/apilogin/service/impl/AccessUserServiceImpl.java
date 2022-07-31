@@ -143,15 +143,16 @@ public class AccessUserServiceImpl implements UserDetailsService {
     }
 
     private void verifyUserRegistered(AccessPostRequestBody accessRequestBody) {
+        accessUserRepository.findByEmail(accessRequestBody.getEmail())
+                .ifPresent(email -> {
+                    throw new BadRequestException(THIS_EMAIL_ALREADY_EXITS);
+                });
+
         accessUserRepository.findAccessByUsernameOrEmail(accessRequestBody.getUsername(),accessRequestBody.getUsername())
                 .ifPresent(user -> {
                     throw new BadRequestException(THIS_USER_ALREADY_EXITS);
                 });
 
-        accessUserRepository.findByEmail(accessRequestBody.getEmail())
-                .ifPresent(email -> {
-                    throw new BadRequestException(THIS_EMAIL_ALREADY_EXITS);
-                });
     }
 
 }
