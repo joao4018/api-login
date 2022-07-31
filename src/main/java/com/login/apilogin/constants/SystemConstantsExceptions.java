@@ -10,4 +10,5 @@ public class SystemConstantsExceptions {
     public static final String THIS_EMAIL_ALREADY_EXITS = "This email already exists";
     public static final String THIS_CODE_NOT_EXITS = "This code not exists";
     public static final String THIS_EMAIL_NOT_EXISTS = "This email not exists";
+    public static final String EMAIL_ALREDY_SENT = "This mail alredy sent to you email";
 }

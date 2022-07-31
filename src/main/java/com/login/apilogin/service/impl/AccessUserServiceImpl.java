@@ -1,10 +1,12 @@
 package com.login.apilogin.service.impl;
 
+import com.login.apilogin.domain.impl.AccessEmail;
 import com.login.apilogin.domain.impl.AccessUser;
 import com.login.apilogin.domain.impl.PersonalData;
 import com.login.apilogin.exception.BadRequestException;
 import com.login.apilogin.mapper.AccessMapper;
 import com.login.apilogin.mapper.PersonalDataMapper;
+import com.login.apilogin.repository.AccessEmailRepository;
 import com.login.apilogin.repository.AccessUserRepository;
 import com.login.apilogin.repository.PersonalDataRepository;
 import com.login.apilogin.request.AccessPostRequestBody;
@@ -27,6 +29,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static com.login.apilogin.constants.SystemConstantsExceptions.ACCESS_USER_NOT_FOUND;
+import static com.login.apilogin.constants.SystemConstantsExceptions.EMAIL_ALREDY_SENT;
 import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_EMAIL_ALREADY_EXITS;
 import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_EMAIL_NOT_EXISTS;
 import static com.login.apilogin.constants.SystemConstantsExceptions.THIS_USER_ALREADY_EXITS;
@@ -41,6 +44,8 @@ public class AccessUserServiceImpl implements UserDetailsService {
     private final PersonalDataRepository personalDataRepository;
 
     private final AccessCodeServiceImpl accessCodeService;
+
+    private final AccessEmailRepository accessEmailRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -92,8 +97,29 @@ public class AccessUserServiceImpl implements UserDetailsService {
     }
 
     public AccessUser searchUserByEmail(String email) {
-        return accessUserRepository.findByEmail(email)
+        LocalDateTime now = LocalDateTime.now();
+        AccessUser accessUser = accessUserRepository.findByEmail(email)
                 .orElseThrow(() -> new BadRequestException(email));
+
+        AccessEmail accessEmail = accessEmailRepository.findById(email)
+                .orElse(new AccessEmail().toBuilder()
+                        .email(email)
+                        .registryDate(now)
+                        .count(1L)
+                        .build());
+
+        if (!accessEmail.getRegistryDate().equals(now)){
+            accessEmail.setCount(accessEmail.getCount() + 1L);
+        }
+
+        accessEmail = accessEmailRepository.save(accessEmail);
+
+        if (accessEmail.getCount() > 2L){
+            throw new ServiceException(EMAIL_ALREDY_SENT);
+        }
+
+        return accessUser;
+
     }
 
     public void validateUserAccount(String email) {
