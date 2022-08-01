@@ -76,3 +76,4 @@ This module contains core items and annotations that can be helpful when testing
 Spring Boot Loader provides the secret sauce that allows you to build a single jar file that can be launched using `java -jar`.
 Generally, you will not need to use `spring-boot-loader` directly but work with the link:spring-boot-project/spring-boot-tools/spring-boot-gradle-plugin[Gradle] or link:spring-boot-project/spring-boot-tools/spring-boot-maven-plugin[Maven] plugin instead.
 
+
