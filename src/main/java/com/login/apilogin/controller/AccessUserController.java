@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED_BY_SPRING_SECURITY_FILTERS;
 
@@ -31,7 +32,7 @@ import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED
 @RestController
 @Log4j2
 @RequiredArgsConstructor
-public class AccessUserController {
+public class AccessUserController extends AbstractController{
 
     private final DateUtil dateUtil;
     private final AccessUserServiceImpl accessUserService;
@@ -79,7 +80,7 @@ public class AccessUserController {
     @GetMapping(path = "/user")
     @Operation(summary = "Returns an existing user")
     public ResponseEntity<ResponseBody> getUser(
-        @RequestParam String email ) {
+        @RequestParam @Valid @NotEmpty(message = "The email cannot be empty") String email ) {
        return new ResponseEntity<>(buildResponsyBody(
                accessUserService.searchUserByEmail(email),
                "Operação de busca de usuário",
@@ -93,17 +94,6 @@ public class AccessUserController {
         @RequestParam String email ) {
         accessUserService.validateUserAccount(email);
        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-
-    private ResponseBody buildResponsyBody(GenericResponse genericResponse, String details, String title) {
-        return new ResponseBody()
-                .toBuilder()
-                .message("Operação realizada com sucesso!")
-                .data(genericResponse)
-                .status(HttpStatus.CREATED.value())
-                .details(details)
-                .title(title)
-                .build();
     }
 
 }
