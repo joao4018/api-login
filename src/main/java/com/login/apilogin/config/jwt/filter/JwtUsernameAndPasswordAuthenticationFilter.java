@@ -74,7 +74,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
     private String getUserResponse(String encryptedToken) throws JsonProcessingException {
         return mapper.writeValueAsString(ResponseBody
                 .builder()
-                .status(true)
+                .status(HttpServletResponse.SC_OK)
                 .message("Login Success!")
                 .data(LoginPostResponseBody
                         .builder()

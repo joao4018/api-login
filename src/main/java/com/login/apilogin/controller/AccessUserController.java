@@ -5,6 +5,8 @@ import com.login.apilogin.request.AccessLoginPostRequestBody;
 import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
+import com.login.apilogin.response.GenericResponse;
+import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.response.SignupPostResponseBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
 import com.login.apilogin.util.DateUtil;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED_BY_SPRING_SECURITY_FILTERS;
 
@@ -29,7 +32,7 @@ import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED
 @RestController
 @Log4j2
 @RequiredArgsConstructor
-public class AccessUserController {
+public class AccessUserController extends AbstractController{
 
     private final DateUtil dateUtil;
     private final AccessUserServiceImpl accessUserService;
@@ -42,31 +45,47 @@ public class AccessUserController {
 
     @PostMapping(path = "/signup")
     @Operation(summary = "Create a new user")
-    public ResponseEntity<SignupPostResponseBody> save(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
-        return new ResponseEntity<>(accessUserService.createUser(accessRequestBody), HttpStatus.CREATED);
+    public ResponseEntity<ResponseBody> save(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
+        return new ResponseEntity<>(buildResponsyBody(accessUserService
+                .createUser(accessRequestBody),
+                "Operação de cadastro",
+                "Create a new user"
+                ), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/recoveryPassword")
+
     @Operation(summary = "Recovery a user")
-    public ResponseEntity<SignupPostResponseBody> recovery(
+    public ResponseEntity<ResponseBody> recovery(
             @RequestBody @Valid AccessRecoveryPostRequestBody accessRequestBody) {
-        return new ResponseEntity<>(accessUserService.recoveryPassword(accessRequestBody), HttpStatus.CREATED);
+        return new ResponseEntity<>(buildResponsyBody(
+                accessUserService.recoveryPassword(accessRequestBody),
+                "Operação de recuperação de usuário",
+                "Recovery a user"
+        ), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/registerPersonalData")
-    @Operation(summary = "Create a new user")
-    public ResponseEntity<AccessUser> registerPersonalData(
+    @Operation(summary = "register data an user")
+    public ResponseEntity<ResponseBody> registerPersonalData(
             @RequestBody @Valid PersonalDataPostRequestBody personalDataPostRequestBody,
             @RequestParam String username ) {
-        return new ResponseEntity<>(accessUserService
-                .addPersonalDataAtUser(personalDataPostRequestBody, username), HttpStatus.CREATED);
+        return new ResponseEntity<>(buildResponsyBody(
+                accessUserService.addPersonalDataAtUser(personalDataPostRequestBody, username),
+                "Operação de cadastro de dados pessoais",
+                "register data an user"
+        ), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/user")
     @Operation(summary = "Returns an existing user")
-    public ResponseEntity<AccessUser> getUser(
-        @RequestParam String email ) {
-       return new ResponseEntity<>(accessUserService.searchUserByEmail(email), HttpStatus.OK);
+    public ResponseEntity<ResponseBody> getUser(
+        @RequestParam @Valid @NotEmpty(message = "The email cannot be empty") String email ) {
+       return new ResponseEntity<>(buildResponsyBody(
+               accessUserService.searchUserByEmail(email),
+               "Operação de busca de usuário",
+               "Returns an existing user"
+       ), HttpStatus.OK);
     }
 
     @GetMapping(path = "/validateUserAccount")
