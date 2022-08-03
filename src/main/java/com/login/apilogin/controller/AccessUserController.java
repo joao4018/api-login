@@ -5,6 +5,8 @@ import com.login.apilogin.request.AccessLoginPostRequestBody;
 import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
+import com.login.apilogin.response.GenericResponse;
+import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.response.SignupPostResponseBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
 import com.login.apilogin.util.DateUtil;
@@ -42,15 +44,24 @@ public class AccessUserController {
 
     @PostMapping(path = "/signup")
     @Operation(summary = "Create a new user")
-    public ResponseEntity<SignupPostResponseBody> save(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
-        return new ResponseEntity<>(accessUserService.createUser(accessRequestBody), HttpStatus.CREATED);
+    public ResponseEntity<ResponseBody> save(@RequestBody @Valid AccessPostRequestBody accessRequestBody) {
+        return new ResponseEntity<>(buildResponsyBody(accessUserService
+                .createUser(accessRequestBody),
+                "Operação de cadastro",
+                "Create a new user"
+                ), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/recoveryPassword")
+
     @Operation(summary = "Recovery a user")
-    public ResponseEntity<SignupPostResponseBody> recovery(
+    public ResponseEntity<ResponseBody> recovery(
             @RequestBody @Valid AccessRecoveryPostRequestBody accessRequestBody) {
-        return new ResponseEntity<>(accessUserService.recoveryPassword(accessRequestBody), HttpStatus.CREATED);
+        return new ResponseEntity<>(buildResponsyBody(
+                accessUserService.recoveryPassword(accessRequestBody),
+                "Operação de recuperação de usuário",
+                "Recovery a user"
+        ), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/registerPersonalData")
@@ -75,6 +86,17 @@ public class AccessUserController {
         @RequestParam String email ) {
         accessUserService.validateUserAccount(email);
        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    private ResponseBody buildResponsyBody(GenericResponse genericResponse, String details, String title) {
+        return new ResponseBody()
+                .toBuilder()
+                .message("Operação realizada com sucesso!")
+                .data(genericResponse)
+                .status(HttpStatus.CREATED.value())
+                .details(details)
+                .title(title)
+                .build();
     }
 
 }

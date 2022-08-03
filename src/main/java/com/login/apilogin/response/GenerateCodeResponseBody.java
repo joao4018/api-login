@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-public class GenerateCodeResponseBody {
+public class GenerateCodeResponseBody implements GenericResponse {
 
     private String code;
 

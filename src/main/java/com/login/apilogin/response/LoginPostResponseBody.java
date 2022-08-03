@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Data
 @Builder(toBuilder = true)
-public class LoginPostResponseBody {
+public class LoginPostResponseBody implements GenericResponse{
 
     private String name;
     private String token;

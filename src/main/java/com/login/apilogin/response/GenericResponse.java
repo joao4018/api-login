@@ -1,4 +1,4 @@
 package com.login.apilogin.response;
 
-public class GenericResponse {
+public interface GenericResponse {
 }
