@@ -65,19 +65,26 @@ public class AccessUserController {
     }
 
     @PostMapping(path = "/registerPersonalData")
-    @Operation(summary = "Create a new user")
-    public ResponseEntity<AccessUser> registerPersonalData(
+    @Operation(summary = "register data an user")
+    public ResponseEntity<ResponseBody> registerPersonalData(
             @RequestBody @Valid PersonalDataPostRequestBody personalDataPostRequestBody,
             @RequestParam String username ) {
-        return new ResponseEntity<>(accessUserService
-                .addPersonalDataAtUser(personalDataPostRequestBody, username), HttpStatus.CREATED);
+        return new ResponseEntity<>(buildResponsyBody(
+                accessUserService.addPersonalDataAtUser(personalDataPostRequestBody, username),
+                "Operação de cadastro de dados pessoais",
+                "register data an user"
+        ), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/user")
     @Operation(summary = "Returns an existing user")
-    public ResponseEntity<AccessUser> getUser(
+    public ResponseEntity<ResponseBody> getUser(
         @RequestParam String email ) {
-       return new ResponseEntity<>(accessUserService.searchUserByEmail(email), HttpStatus.OK);
+       return new ResponseEntity<>(buildResponsyBody(
+               accessUserService.searchUserByEmail(email),
+               "Operação de busca de usuário",
+               "Returns an existing user"
+       ), HttpStatus.OK);
     }
 
     @GetMapping(path = "/validateUserAccount")

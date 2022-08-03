@@ -80,10 +80,14 @@ public class AccessUserServiceImpl implements UserDetailsService {
     }
 
     @Transactional
-    public AccessUser addPersonalDataAtUser(PersonalDataPostRequestBody personalDataPostRequestBody, String username) {
+    public SignupPostResponseBody addPersonalDataAtUser(PersonalDataPostRequestBody personalDataPostRequestBody, String username) {
         PersonalData personalData = PersonalDataMapper.INSTANCE.toPersonal(personalDataPostRequestBody);
         personalData = personalDataRepository.save(personalData);
-        return accessUserRepository.save(builderAndUpdatePersonalData(personalData, username));
+        return AccessMapper.INSTANCE
+                .toSignupPostResponseBody(accessUserRepository
+                        .save(builderAndUpdatePersonalData(personalData, username)));
+
+
     }
 
     private AccessUser builderAndUpdatePersonalData(PersonalData personalData, String username) {
@@ -95,7 +99,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
                 .build();
     }
 
-    public AccessUser searchUserByEmail(String email) {
+    public SignupPostResponseBody searchUserByEmail(String email) {
         LocalDateTime now = LocalDateTime.now();
         AccessUser accessUser = accessUserRepository.findByEmail(email)
                 .orElseThrow(() -> new BadRequestException(email));
@@ -115,7 +119,8 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
         accessEmailRepository.save(accessEmail);
 
-        return accessUser;
+        return AccessMapper.INSTANCE.toSignupPostResponseBody(accessUser);
+
 
     }
 
