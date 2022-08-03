@@ -80,7 +80,8 @@ public class AccessUserServiceImpl implements UserDetailsService {
     }
 
     @Transactional
-    public SignupPostResponseBody addPersonalDataAtUser(PersonalDataPostRequestBody personalDataPostRequestBody, String username) {
+    public SignupPostResponseBody addPersonalDataAtUser(
+            PersonalDataPostRequestBody personalDataPostRequestBody, String username) {
         PersonalData personalData = PersonalDataMapper.INSTANCE.toPersonal(personalDataPostRequestBody);
         personalData = personalDataRepository.save(personalData);
         return AccessMapper.INSTANCE
@@ -90,13 +91,11 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
     }
 
-    private AccessUser builderAndUpdatePersonalData(PersonalData personalData, String username) {
-        AccessUser accessUser = accessUserRepository.findAccessByUsernameOrEmail(username,username)
-                .orElseThrow(() -> new BadRequestException(ACCESS_USER_NOT_FOUND));
-        return accessUser
-                .toBuilder()
-                .personalData(personalData)
-                .build();
+    public void validateUserAccount(String email) {
+        AccessUser accessUser = accessUserRepository.findByEmail(email)
+                .orElseThrow(() -> new BadRequestException(email));
+        accessUser.setAccountValidate(accessUser.getAccountValidate().plusMonths(72));
+        accessUserRepository.save(accessUser);
     }
 
     public SignupPostResponseBody searchUserByEmail(String email) {
@@ -130,20 +129,16 @@ public class AccessUserServiceImpl implements UserDetailsService {
         }
     }
 
-    public void validateUserAccount(String email) {
-        AccessUser accessUser = accessUserRepository.findByEmail(email)
-                .orElseThrow(() -> new BadRequestException(email));
-        accessUser.setAccountValidate(accessUser.getAccountValidate().plusMonths(72));
-        accessUserRepository.save(accessUser);
-    }
-
     private AccessUser builderUser(AccessUser accessUser) {
         return accessUser
                 .toBuilder()
                 .singUpDate(LocalDateTime.now())
-                .accountValidate(LocalDateTime.now().plusDays(TimeUnit.MILLISECONDS.toDays(ONE_DAY))) // 7 days to confirm email
-                .premiumValidate(LocalDateTime.now().plusDays(TimeUnit.MILLISECONDS.toDays(ONE_WEEK))) // 7 days premium free
-                .passwordExpired(LocalDateTime.now().plusMonths(3L)) // after 90 days password expire
+                .accountValidate(LocalDateTime.now()
+                        .plusDays(TimeUnit.MILLISECONDS.toDays(ONE_DAY))) // 7 days to confirm email
+                .premiumValidate(LocalDateTime.now()
+                        .plusDays(TimeUnit.MILLISECONDS.toDays(ONE_WEEK))) // 7 days premium free
+                .passwordExpired(LocalDateTime.now()
+                        .plusMonths(3L)) // after 90 days password expire
                 .build();
     }
 
@@ -153,11 +148,21 @@ public class AccessUserServiceImpl implements UserDetailsService {
                     throw new BadRequestException(THIS_EMAIL_ALREADY_EXITS);
                 });
 
-        accessUserRepository.findAccessByUsernameOrEmail(accessRequestBody.getUsername(),accessRequestBody.getUsername())
+        accessUserRepository.findAccessByUsernameOrEmail(
+                accessRequestBody.getUsername(),accessRequestBody.getUsername())
                 .ifPresent(user -> {
                     throw new BadRequestException(THIS_USER_ALREADY_EXITS);
                 });
 
+    }
+
+    private AccessUser builderAndUpdatePersonalData(PersonalData personalData, String username) {
+        AccessUser accessUser = accessUserRepository.findAccessByUsernameOrEmail(username,username)
+                .orElseThrow(() -> new BadRequestException(ACCESS_USER_NOT_FOUND));
+        return accessUser
+                .toBuilder()
+                .personalData(personalData)
+                .build();
     }
 
 }
