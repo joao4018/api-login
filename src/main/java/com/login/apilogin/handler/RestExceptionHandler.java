@@ -24,7 +24,7 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(
                 BadRequestDetails.builder()
                         .timestamp(LocalDateTime.now())
-                        .developerMessage(badRequestException.getClass().getName())
+                        .message(badRequestException.getClass().getName())
                         .title("Bad Request Exception, Check the Documentation.")
                         .status(HttpStatus.BAD_REQUEST.value())
                         .details(badRequestException.getMessage())
@@ -42,7 +42,7 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(
                 ValidationExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())
-                        .developerMessage(methodArgumentNotValidException.getClass().getName())
+                        .message(methodArgumentNotValidException.getClass().getName())
                         .title("Bad Request Exception, Invalid Fields.")
                         .status(HttpStatus.BAD_REQUEST.value())
                         .details("Check the field errors!")
