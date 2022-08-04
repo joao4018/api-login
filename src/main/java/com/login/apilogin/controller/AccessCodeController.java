@@ -4,9 +4,9 @@ import com.login.apilogin.domain.impl.AccessCode;
 import com.login.apilogin.request.AccessCodePostRequestBody;
 import com.login.apilogin.request.AccessValidatePostRequestBody;
 import com.login.apilogin.response.GenerateCodeResponseBody;
-import com.login.apilogin.response.GenericResponse;
 import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.service.impl.AccessCodeServiceImpl;
+import com.login.apilogin.token.token.converter.TokenConverter;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,10 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequiredArgsConstructor
 public class AccessCodeController extends AbstractController {
 
     private final AccessCodeServiceImpl accessCodeService;
+
+    public AccessCodeController(TokenConverter tokenConverter,
+                                AccessCodeServiceImpl accessCodeService) {
+        super(tokenConverter);
+        this.accessCodeService = accessCodeService;
+    }
 
     @PostMapping(path = "/generateAccessCode")
     @Operation(summary = "Create a new access code")
