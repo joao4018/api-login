@@ -8,6 +8,7 @@ import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
 import com.login.apilogin.util.DateUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED
 @RestController
 @Log4j2
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Authorization")
 public class AccessUserController extends AbstractController {
 
     private final DateUtil dateUtil;
