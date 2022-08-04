@@ -6,21 +6,24 @@ import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
 import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
+import com.login.apilogin.token.token.converter.TokenConverter;
 import com.login.apilogin.util.DateUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+
+import java.text.ParseException;
 
 import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED_BY_SPRING_SECURITY_FILTERS;
 
@@ -29,12 +32,20 @@ import static com.login.apilogin.constants.SystemConstantsExceptions.IMPLEMENTED
  */
 @RestController
 @Log4j2
-@RequiredArgsConstructor
 @SecurityRequirement(name = "Authorization")
 public class AccessUserController extends AbstractController {
 
     private final DateUtil dateUtil;
     private final AccessUserServiceImpl accessUserService;
+
+    public AccessUserController(TokenConverter tokenConverter,
+                                DateUtil dateUtil,
+                                AccessUserServiceImpl accessUserService) {
+        super(tokenConverter);
+        this.dateUtil = dateUtil;
+        this.accessUserService = accessUserService;
+    }
+
 
     @PostMapping("/login")
     @Operation(summary = "Generate Token")
@@ -56,8 +67,15 @@ public class AccessUserController extends AbstractController {
 
     @PostMapping(path = "/registerPersonalData")
     @Operation(summary = "register data an user")
-    public ResponseEntity<ResponseBody> registerPersonalData(@RequestBody @Valid PersonalDataPostRequestBody personalDataPostRequestBody, @RequestParam String username) {
-        return new ResponseEntity<>(buildResponsyBody(accessUserService.addPersonalDataAtUser(personalDataPostRequestBody, username), "Operação de cadastro de dados pessoais", "register data an user"), HttpStatus.CREATED);
+    public ResponseEntity<ResponseBody> registerPersonalData(
+            @RequestHeader(name = "Authorization", required = false) String authorization,
+            @RequestBody @Valid PersonalDataPostRequestBody personalDataPostRequestBody) throws ParseException {
+        return new ResponseEntity<>(
+                buildResponsyBody(
+                        accessUserService.addPersonalDataAtUser(
+                                personalDataPostRequestBody,  getUsername(authorization)),
+                        "Operação de cadastro de dados pessoais",
+                        "register data an user"), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/user")

@@ -6,6 +6,7 @@ import com.nimbusds.jose.crypto.DirectDecrypter;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jwt.SignedJWT;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TokenConverter {
+    @Getter
     private final JwtConfiguration jwtConfiguration;
 
     @SneakyThrows
