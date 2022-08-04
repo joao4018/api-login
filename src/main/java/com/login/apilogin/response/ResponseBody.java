@@ -3,7 +3,9 @@ package com.login.apilogin.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -13,14 +15,16 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class ResponseBody{
 
     private String message;
     private GenericResponse data;
-    protected String title;
-    protected Integer status;
-    protected String details;
-    protected LocalDateTime timestamp = LocalDateTime.now();
+    private String title;
+    private Integer status;
+    private String details;
+    private LocalDateTime timestamp = LocalDateTime.now();
 
 
 }

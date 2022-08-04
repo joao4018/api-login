@@ -35,7 +35,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,SIGN_UP_URL).permitAll()
                 .antMatchers(jwtConfiguration.getLoginUrl()).permitAll()
                 .antMatchers(HttpMethod.POST,AUTH_URL).permitAll()
-                .antMatchers(HttpMethod.POST,"/registerPersonalData**").permitAll()
+//                .antMatchers(HttpMethod.POST,"/registerPersonalData**").permitAll()
                 .antMatchers(HttpMethod.GET,"/user**").permitAll()
                 .antMatchers(HttpMethod.POST, "/generateAccessCode**").permitAll()
                 .antMatchers(HttpMethod.POST, "/recoveryPassword**").permitAll()
