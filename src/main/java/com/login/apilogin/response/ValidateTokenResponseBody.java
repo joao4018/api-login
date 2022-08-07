@@ -3,17 +3,18 @@ package com.login.apilogin.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import lombok.Setter;
 
 /**
  * @author joaocarlos
  */
-@Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ValidateTokenResponseBody implements GenericResponse{
+@Getter
+@Setter
+public class ValidateTokenResponseBody extends GenericResponse {
     private String username;
 }

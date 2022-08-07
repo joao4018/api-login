@@ -1,5 +1,6 @@
 package com.login.apilogin.response;
 
+import com.login.apilogin.response.GenericResponseAdapters.GenericResponse;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import lombok.Data;
  */
 @Data
 @Builder(toBuilder = true)
-public class LoginPostResponseBody implements GenericResponse{
+public class LoginPostResponseBody extends GenericResponse {
 
     private String name;
     private String token;

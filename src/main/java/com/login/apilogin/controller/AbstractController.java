@@ -2,6 +2,7 @@ package com.login.apilogin.controller;
 
 import com.login.apilogin.exception.BadRequestException;
 import com.login.apilogin.response.GenericResponse;
+import com.login.apilogin.response.GenericResponseAdapters.GenericResponse;
 import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.token.token.converter.TokenConverter;
 import com.nimbusds.jwt.SignedJWT;

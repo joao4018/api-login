@@ -3,18 +3,21 @@ package com.login.apilogin.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 /**
  * @author joaocarlos
  */
-@Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignupPostResponseBody implements GenericResponse{
+@Getter
+@Setter
+public class SignupPostResponseBody extends GenericResponse {
     private String email;
     private LocalDateTime singUpDate;
     private LocalDateTime lastLogin;
