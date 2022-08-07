@@ -1,7 +1,7 @@
 package com.login.apilogin.response;
 
-import com.login.apilogin.response.GenericResponseAdapters.GenericResponseInterface;
-import com.login.apilogin.response.GenericResponseAdapters.GenericResponseSerializable;
+import com.login.apilogin.response.genericResponseAdapters.GenericResponseInterface;
+import com.login.apilogin.response.genericResponseAdapters.GenericResponseSerializable;
 
 
 /**

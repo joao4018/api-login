@@ -3,12 +3,12 @@ package com.login.apilogin.controller;
 import com.login.apilogin.domain.impl.AccessCode;
 import com.login.apilogin.request.AccessCodePostRequestBody;
 import com.login.apilogin.request.AccessValidatePostRequestBody;
+import com.login.apilogin.response.BuilderResponse;
 import com.login.apilogin.response.GenerateCodeResponseBody;
 import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.service.impl.AccessCodeServiceImpl;
 import com.login.apilogin.token.token.converter.TokenConverter;
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,11 +21,12 @@ import javax.validation.Valid;
 public class AccessCodeController extends AbstractController {
 
     private final AccessCodeServiceImpl accessCodeService;
+    private final BuilderResponse builderResponse;
 
     public AccessCodeController(TokenConverter tokenConverter,
-                                AccessCodeServiceImpl accessCodeService) {
-        super(tokenConverter);
+                                AccessCodeServiceImpl accessCodeService, BuilderResponse builderResponse) {
         this.accessCodeService = accessCodeService;
+        this.builderResponse = builderResponse;
     }
 
     @PostMapping(path = "/generateAccessCode")

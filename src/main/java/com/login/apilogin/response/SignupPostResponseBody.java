@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+
 public class SignupPostResponseBody extends GenericResponse {
     private String email;
     private LocalDateTime singUpDate;

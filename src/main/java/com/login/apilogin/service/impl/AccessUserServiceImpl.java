@@ -12,10 +12,14 @@ import com.login.apilogin.repository.PersonalDataRepository;
 import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
+import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.response.SignupPostResponseBody;
+import com.login.apilogin.response.ValidateTokenResponseBody;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,6 +40,7 @@ import static javax.management.timer.Timer.ONE_DAY;
 import static javax.management.timer.Timer.ONE_WEEK;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AccessUserServiceImpl implements UserDetailsService {
     private final AccessUserRepository accessUserRepository;

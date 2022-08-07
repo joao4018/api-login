@@ -7,12 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializationContext;
-
-import java.time.Duration;
 
 import static com.login.apilogin.constants.Asg.Asg.AUTHOR_LINKEDIN;
 import static com.login.apilogin.constants.Asg.Asg.AUTHOR_SIGNATURE;

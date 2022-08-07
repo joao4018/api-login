@@ -7,14 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * @author joaocarlos
  */
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class ValidateTokenResponseBody extends GenericResponse {
+    private static final long serialVersionUID = 234654929459995942L;
     private String username;
 }
