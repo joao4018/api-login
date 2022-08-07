@@ -5,6 +5,8 @@ import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
 import com.login.apilogin.response.ResponseBody;
+import com.login.apilogin.response.SignupPostResponseBody;
+import com.login.apilogin.response.ValidateTokenResponseBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
 import com.login.apilogin.token.token.converter.TokenConverter;
 import com.login.apilogin.util.DateUtil;
@@ -89,6 +91,17 @@ public class AccessUserController extends AbstractController {
     public ResponseEntity<HttpStatus> validateUserAccount(@RequestParam String email) {
         accessUserService.validateUserAccount(email);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(path = "/validateToken")
+    @Operation(summary = "validate a token")
+    public ResponseEntity<ResponseBody> registerPersonalData(
+            @RequestHeader(name = "Authorization", required = false) String authorization) {
+        return new ResponseEntity<>(
+                buildResponsyBody(
+                        new ValidateTokenResponseBody(getUsername(authorization)),
+                        "Operação de validação de token",
+                        "validate a token"), HttpStatus.OK);
     }
 
 }
