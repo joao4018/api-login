@@ -11,8 +11,13 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
 
-
 spring:
+  redis:
+    database: 0
+    host: ${HOST_REDIS}
+    port: ${PORT_REDIS}
+    password: ${PASS_REDIS}
+    timeout: 60000
   encr: ${EPY}
   application:
     name: auth
