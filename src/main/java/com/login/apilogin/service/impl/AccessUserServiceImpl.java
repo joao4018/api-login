@@ -4,6 +4,7 @@ import com.login.apilogin.domain.impl.AccessEmail;
 import com.login.apilogin.domain.impl.AccessUser;
 import com.login.apilogin.domain.impl.PersonalData;
 import com.login.apilogin.exception.BadRequestException;
+import com.login.apilogin.kafkaConfig.KafkaConfig;
 import com.login.apilogin.mapper.AccessMapper;
 import com.login.apilogin.mapper.PersonalDataMapper;
 import com.login.apilogin.repository.AccessEmailRepository;
@@ -51,6 +52,8 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
     private final AccessEmailRepository accessEmailRepository;
 
+    private final KafkaConfig kafkaConfig;
+
     @Override
     public UserDetails loadUserByUsername(String username) {
         return accessUserRepository.findAccessByUsernameOrEmail(username, username)
@@ -66,6 +69,8 @@ public class AccessUserServiceImpl implements UserDetailsService {
         AccessUser accessUser = AccessMapper.INSTANCE.toAccess(accessRequestBody);
 
         verifyUserRegistered(accessRequestBody);
+
+        kafkaConfig.produce(accessRequestBody.getEmail(), "Create");
 
         return AccessMapper.INSTANCE.toSignupPostResponseBody(accessUserRepository.save(builderUser(accessUser)));
     }
