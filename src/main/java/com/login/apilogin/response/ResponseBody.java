@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -15,10 +16,10 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class ResponseBody{
+@Data
+public class ResponseBody implements Serializable{
 
+    private static final long serialVersionUID = 7107906189421273428L;
     private String message;
     private GenericResponse data;
     private String title;

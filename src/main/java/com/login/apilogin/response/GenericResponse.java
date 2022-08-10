@@ -1,4 +1,11 @@
 package com.login.apilogin.response;
 
-public interface GenericResponse {
+import com.login.apilogin.response.genericResponseAdapters.GenericResponseInterface;
+import com.login.apilogin.response.genericResponseAdapters.GenericResponseSerializable;
+
+
+/**
+ * @author joaocarlos
+ */
+public abstract class GenericResponse extends GenericResponseSerializable implements GenericResponseInterface {
 }
