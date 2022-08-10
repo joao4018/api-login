@@ -3,6 +3,7 @@ package com.login.apilogin.response;
 import com.login.apilogin.exception.BadRequestException;
 import com.login.apilogin.token.token.converter.TokenConverter;
 import com.nimbusds.jwt.SignedJWT;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,9 @@ import java.text.ParseException;
  */
 @Service
 @Slf4j
-public class BuilderResponse {
+@RequiredArgsConstructor
+public class ValidateUser {
     private final TokenConverter tokenConverter;
-
-    public BuilderResponse(TokenConverter tokenConverter) {
-        this.tokenConverter = tokenConverter;
-    }
 
     private String removeBearer(String authorization) {
         return authorization.replace(

@@ -4,7 +4,7 @@ import com.login.apilogin.request.AccessLoginPostRequestBody;
 import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
-import com.login.apilogin.response.BuilderResponse;
+import com.login.apilogin.response.ValidateUser;
 import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.response.ValidateTokenResponseBody;
 import com.login.apilogin.service.impl.AccessUserServiceImpl;
@@ -39,14 +39,14 @@ public class AccessUserController extends AbstractController {
 
     private final DateUtil dateUtil;
     private final AccessUserServiceImpl accessUserService;
-    private final BuilderResponse builderResponse;
+    private final ValidateUser validateUser;
 
     public AccessUserController(TokenConverter tokenConverter,
                                 DateUtil dateUtil,
-                                AccessUserServiceImpl accessUserService, BuilderResponse builderResponse) {
+                                AccessUserServiceImpl accessUserService, ValidateUser validateUser) {
         this.dateUtil = dateUtil;
         this.accessUserService = accessUserService;
-        this.builderResponse = builderResponse;
+        this.validateUser = validateUser;
     }
 
 
@@ -76,7 +76,7 @@ public class AccessUserController extends AbstractController {
         return new ResponseEntity<>(
                 buildResponsyBody(
                         accessUserService.addPersonalDataAtUser(
-                                personalDataPostRequestBody,  builderResponse.getUsername(authorization)),
+                                personalDataPostRequestBody,  validateUser.getUsername(authorization)),
                         "Operação de cadastro de dados pessoais",
                         "register data an user"), HttpStatus.CREATED);
     }
@@ -100,7 +100,7 @@ public class AccessUserController extends AbstractController {
             @RequestHeader(name = "Authorization", required = false) String authorization) {
         return new ResponseEntity<>(
                 buildResponsyBody(
-                        new ValidateTokenResponseBody(builderResponse.getUsername(authorization)),
+                        new ValidateTokenResponseBody(validateUser.getUsername(authorization)),
                         "Operação de validação de token",
                         "validate a token"), HttpStatus.OK);
     }

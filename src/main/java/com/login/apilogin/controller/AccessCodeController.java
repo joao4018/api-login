@@ -3,7 +3,7 @@ package com.login.apilogin.controller;
 import com.login.apilogin.domain.impl.AccessCode;
 import com.login.apilogin.request.AccessCodePostRequestBody;
 import com.login.apilogin.request.AccessValidatePostRequestBody;
-import com.login.apilogin.response.BuilderResponse;
+import com.login.apilogin.response.ValidateUser;
 import com.login.apilogin.response.GenerateCodeResponseBody;
 import com.login.apilogin.response.ResponseBody;
 import com.login.apilogin.service.impl.AccessCodeServiceImpl;
@@ -21,12 +21,12 @@ import javax.validation.Valid;
 public class AccessCodeController extends AbstractController {
 
     private final AccessCodeServiceImpl accessCodeService;
-    private final BuilderResponse builderResponse;
+    private final ValidateUser validateUser;
 
     public AccessCodeController(TokenConverter tokenConverter,
-                                AccessCodeServiceImpl accessCodeService, BuilderResponse builderResponse) {
+                                AccessCodeServiceImpl accessCodeService, ValidateUser validateUser) {
         this.accessCodeService = accessCodeService;
-        this.builderResponse = builderResponse;
+        this.validateUser = validateUser;
     }
 
     @PostMapping(path = "/generateAccessCode")
