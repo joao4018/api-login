@@ -19,6 +19,8 @@ spring:
     password: ${PASS_REDIS}
     timeout: 60000
   encr: ${EPY}
+  kfpass: ${KAFKA_PASS}
+  kfuser: ${KAFKA_USER}
   application:
     name: auth
   datasource:

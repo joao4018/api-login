@@ -8,19 +8,27 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
 import java.util.Properties;
 
+@Configuration
 public class KafkaConfig {
     private final String topic;
     private final Properties props;
+    @Value("${spring.kfuser}")
+    private String username;
+    @Value("${spring.kfpass}")
+    private String password;
 
-    public KafkaConfig(String brokers, String username, String password) {
-        brokers = "moped-01.srvs.cloudkafka.com:9094,moped-02.srvs.cloudkafka.com:9094,"
+    public KafkaConfig() {
+        String brokers = "moped-01.srvs.cloudkafka.com:9094,moped-02.srvs.cloudkafka.com:9094,"
                 + "moped-03.srvs.cloudkafka.com:9094";
-        username = "d83eral9";
-        password = "mfb3msC-g1i3z89JrpzCzjJ4whd6J7bx";
+
+
+
         this.topic = username + "-default";
 
         String jaasTemplate = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
