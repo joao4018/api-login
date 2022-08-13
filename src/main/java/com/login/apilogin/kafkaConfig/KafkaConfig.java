@@ -18,12 +18,12 @@ import java.util.Properties;
 public class KafkaConfig {
     private final String topic;
     private final Properties props;
-    @Value("${spring.kfuser}")
-    private String username;
-    @Value("${spring.kfpass}")
-    private String password;
 
-    public KafkaConfig() {
+
+    public KafkaConfig(@Value("${spring.kfuser}")
+                        String username,
+    @Value("${spring.kfpass}")
+     String password) {
         String brokers = "moped-01.srvs.cloudkafka.com:9094,moped-02.srvs.cloudkafka.com:9094,"
                 + "moped-03.srvs.cloudkafka.com:9094";
 
