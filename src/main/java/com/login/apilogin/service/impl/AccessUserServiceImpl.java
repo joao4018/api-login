@@ -10,6 +10,7 @@ import com.login.apilogin.mapper.PersonalDataMapper;
 import com.login.apilogin.repository.AccessEmailRepository;
 import com.login.apilogin.repository.AccessUserRepository;
 import com.login.apilogin.repository.PersonalDataRepository;
+import com.login.apilogin.request.AccessCodePostRequestBody;
 import com.login.apilogin.request.AccessPostRequestBody;
 import com.login.apilogin.request.AccessRecoveryPostRequestBody;
 import com.login.apilogin.request.PersonalDataPostRequestBody;
@@ -70,7 +71,8 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
         verifyUserRegistered(accessRequestBody);
 
-        kafkaConfig.produce(accessRequestBody.getEmail(), "Acesse o link para finalizar a criação da sua conta: ");
+        kafkaConfig.produce(accessRequestBody.getEmail(), "Acesse o link para finalizar a criação da sua conta: "
+                + "https://personal-project-jj.herokuapp.com/email-validate?email=");
 
         return AccessMapper.INSTANCE.toSignupPostResponseBody(accessUserRepository.save(builderUser(accessUser)));
     }
@@ -86,7 +88,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
         user.setPassword(passwordEncoder.encode(accessRequestBody.getPassword()));
 
-        kafkaConfig.produce(accessRequestBody.getEmail(), "Acesse o link para finalizar a recuperação da sua senha: ");
+        kafkaConfig.produce(accessRequestBody.getEmail(), "Seu código para recuperação de senha: " + accessCodeService.createAccessCode( new AccessCodePostRequestBody(accessRequestBody.getEmail())));
 
 
 
