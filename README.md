@@ -1,4 +1,5 @@
 ![example workflow](https://github.com/joao4018/api-login/actions/workflows/maven.yml/badge.svg?branch=master)
+mvn -N io.takari:maven:wrapper
 
 # api-login
 
