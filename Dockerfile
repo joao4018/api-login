@@ -14,5 +14,5 @@ ARG DEPENDENCY=/workspace/app/target/dependency
 #COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 #COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 #COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-COPY --from=build /workspace/app/target/api-login-latest.jar /app
+COPY /workspace/app/target/api-login-latest.jar /app
 CMD ["java", "-jar", "api-login-latest.jar"]
