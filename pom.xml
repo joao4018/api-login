@@ -12,7 +12,7 @@
 
     <groupId>com.login</groupId>
     <artifactId>api-login</artifactId>
-    <version>latest</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>api-login</name>
     <description>Projeto desenvolvido para facilitar a criação de api de login</description>
 
