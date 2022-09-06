@@ -21,6 +21,6 @@ jobs:
       run: 
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker image
-      run : docker build . --load --file Dockerfile --tag joao4018/api-login:$(date +%s)
+      run : docker build . --file Dockerfile --load --tag joao4018/api-login:$(date +%s)
     - name: Docker Push
       run: docker push joao4018/api-login
