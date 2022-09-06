@@ -38,7 +38,6 @@ composer.phar
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
-.mvn
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
