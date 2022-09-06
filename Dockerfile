@@ -16,4 +16,4 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 COPY --from=build ${JAVAJAR}/api-login-latest.jar /app/api-login.jar
-CMD ["java", "-jar", "api-login-latest.jar"]
+CMD ["java", "-jar", "api-login-0.0.3-SNAPSHOT.jar"]
