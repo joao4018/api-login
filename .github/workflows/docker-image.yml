@@ -19,8 +19,8 @@ jobs:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: 
-        docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker image
-      run : docker build . --file Dockerfile --tag chamodshehanka/node-test:$(date +%s)
+      run : docker build . --file Dockerfile --tag joao4018/api-login:$(date +%s)
     - name: Docker Push
       run: docker push ${{secrets.DOCKER_USER}}/api-login
