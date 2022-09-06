@@ -23,4 +23,4 @@ jobs:
     - name: Build the Docker image
       run : docker build . --file Dockerfile --tag joao4018/api-login:$(date +%s)
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/api-login
+      run: docker push joao4018/api-login
