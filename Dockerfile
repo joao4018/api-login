@@ -1,8 +1,9 @@
-FROM adoptopenjdk/openjdk11:latest as build
+FROM adoptopenjdk/openjdk11:latest
 WORKDIR /app
 
 COPY mvnw .
 COPY pom.xml .
+COPY .mvn .mvn
 COPY src src
 
 RUN ./mvnw install -DskipTests
