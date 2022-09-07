@@ -22,6 +22,7 @@ public class ApiLoginApplication {
     public static void main(String[] args) {
         log.info(AUTHOR_SIGNATURE);
         log.info(AUTHOR_LINKEDIN);
+        log.info("Versão 0.0.3");
         SpringApplication.run(ApiLoginApplication.class, args);
     }
 
