@@ -8,9 +8,13 @@ COPY src src
 
 RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+
 FROM adoptopenjdk/openjdk11:latest
 VOLUME /tmp
 WORKDIR /app
+ARG PORT
+ENV PORT "$PORT"
+EXPOSE ${PORT}
 ARG DEPENDENCY=/workspace/app/target/dependency
 ARG JAVAJAR=/workspace/app/target
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
