@@ -20,8 +20,10 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: 
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - name: Build the Docker image
-      run : docker build . --file Dockerfile --tag joao4018/api-login:$(date +%s)
-    - name: Docker Push
-      run:
-        docker push joao4018/api-login
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_USER }}/api-login:latest
