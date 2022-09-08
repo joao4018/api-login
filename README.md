@@ -5,6 +5,11 @@ Gerar Pasta .mvn
 
 mvn -N io.takari:maven:wrapper
 
+Docker
+
+docker-compose down && docker-compose build --pull && docker-compose up -d
+
+
 # api-login
 
 Commits will only be accepted with the tags listed below in their prefix

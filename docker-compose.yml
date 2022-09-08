@@ -9,8 +9,8 @@ x-database-variables: &database-variables
   SPRING_REDIS_PORT: 6379
   SPRING_REDIS_PASSWORD: SUASENHA
   SPRING_ENCR: xxpawt2WLOEJRPmQMfIC4dZxoDh6cRJX
-  SPRING_KFPASS: kafpass
-  SPRING_KFUSER: kafpass
+  SPRING_KFPASS: dclwwylQQr8IfkmmgCRnBIgJKN9x_x9B
+  SPRING_KFUSER: d83eral9
 
 
 services:
