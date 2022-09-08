@@ -1,7 +1,7 @@
 #version: '3.1'
 version: '2.2'
-x-database-variables: &database-variables
-  SERVER_PORT: 8080
+x-api-login-variables: &api-login-variables
+  SERVER_PORT: 8083
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
   SPRING_DATASOURCE_USERNAME: postgres
   SPRING_DATASOURCE_PASSWORD: postgres
@@ -11,6 +11,11 @@ x-database-variables: &database-variables
   SPRING_ENCR: xxpawt2WLOEJRPmQMfIC4dZxoDh6cRJX
   SPRING_KFPASS: dclwwylQQr8IfkmmgCRnBIgJKN9x_x9B
   SPRING_KFUSER: d83eral9
+  EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE: http://discovery:8080/eureka
+
+x-discovery-variables: &discovery-variables
+  SERVER_PORT: 8080
+  EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE: http://localhost:8080/eureka/
 
 
 services:
@@ -67,7 +72,16 @@ services:
     ports:
       - "8083:8083"
     environment:
-      <<: *database-variables
+      <<: *api-login-variables
+    mem_limit: 512m
+
+  discovery:
+    container_name: discovery
+    image: joao4018/discovery:latest
+    ports:
+      - "8080:8080"
+    environment:
+      <<: *discovery-variables
     mem_limit: 512m
 
 volumes:
