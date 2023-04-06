@@ -13,7 +13,25 @@ eureka:
 
 
 spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: my-group-id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password: SUASENHA
+    timeout: 60000
   encr: xxpawt2WLOEJRPmQMfIC4dZxoDh6cRJX
+  kfpass: teste
+  kfuser: teste
   application:
     name: auth
   datasource:
