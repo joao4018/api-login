@@ -24,8 +24,9 @@ public class KafkaConfig {
                         String username,
     @Value("${spring.kfpass}")
      String password) {
-        String brokers = "moped-01.srvs.cloudkafka.com:9094,moped-02.srvs.cloudkafka.com:9094,"
-                + "moped-03.srvs.cloudkafka.com:9094";
+//        String brokers = "moped-01.srvs.cloudkafka.com:9094,moped-02.srvs.cloudkafka.com:9094,"
+//                + "moped-03.srvs.cloudkafka.com:9094";
+        String brokers = "localhost:9092";
 
 
 
@@ -47,9 +48,9 @@ public class KafkaConfig {
         props.put("value.deserializer", deserializer);
         props.put("key.serializer", serializer);
         props.put("value.serializer", serializer);
-        props.put("security.protocol", "SASL_SSL");
-        props.put("sasl.mechanism", "SCRAM-SHA-256");
-        props.put("sasl.jaas.config", jaasCfg);
+        props.put("security.protocol", "PLAINTEXT");
+//        props.put("sasl.mechanism", "SCRAM-SHA-256");
+//        props.put("sasl.jaas.config", jaasCfg);
     }
 
     public void consume() {
