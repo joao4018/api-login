@@ -13,10 +13,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(info = @Info(title = "My API", version = "v1"),
-        servers = {@Server(url = "https://api-login-all-it.herokuapp.com", description = "used with load balancer + heroku"),
-        @Server(url = "http://api-login-all-it.herokuapp.com", description = "used heroku without load balancer and localhost"),
-        @Server(url = "/" , description = "used heroku without load balancer and localhost"),
-        @Server(url = "https://api-login.azurewebsites.net", description = "used azure"),})
+        servers = {
+        @Server(url = "/" , description = "localhost"),
+        })
 @SecurityScheme(
         name = "Authorization",
         type = SecuritySchemeType.HTTP,

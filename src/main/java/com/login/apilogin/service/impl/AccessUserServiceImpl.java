@@ -70,7 +70,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
         verifyUserRegistered(accessRequestBody);
 
-        kafkaConfig.produce(accessRequestBody.getEmail(), "Acesse o link para finalizar a criação da sua conta: ");
+//        kafkaConfig.produce(accessRequestBody.getEmail(), "Acesse o link para finalizar a criação da sua conta: ");
 
         return AccessMapper.INSTANCE.toSignupPostResponseBody(accessUserRepository.save(builderUser(accessUser)));
     }
@@ -86,7 +86,7 @@ public class AccessUserServiceImpl implements UserDetailsService {
 
         user.setPassword(passwordEncoder.encode(accessRequestBody.getPassword()));
 
-        kafkaConfig.produce(accessRequestBody.getEmail(), "Acesse o link para finalizar a recuperação da sua senha: ");
+//        kafkaConfig.produce(accessRequestBody.getEmail(), "Acesse o link para finalizar a recuperação da sua senha: ");
 
 
 
