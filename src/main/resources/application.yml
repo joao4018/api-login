@@ -1,44 +1,41 @@
-server:
-  port: $PORT
 
-eureka:
-  instance:
-    non-secure-port: 80
-    hostname: api-login-all-it.herokuapp.com
-  client:
-    service-url:
-      defaultZone: https://secret-anchorage-03030.herokuapp.com/eureka/
-    fetch-registry: true
-    register-with-eureka: true
+#eureka:
+#  instance:
+#    non-secure-port: 80
+#    hostname: api-login-all-it.herokuapp.com
+#  client:
+#    service-url:
+#      defaultZone: https://secret-anchorage-03030.herokuapp.com/eureka/
+#    fetch-registry: true
+#    register-with-eureka: true
 
 spring:
-  redis:
-    database: 0
-    host: ${HOST_REDIS}
-    port: ${PORT_REDIS}
-    password: ${PASS_REDIS}
-    timeout: 60000
+  #  redis:
+  #    database: 0
+  #    host: ${HOST_REDIS}
+  #    port: ${PORT_REDIS}
+  #    password: ${PASS_REDIS}
+  #    timeout: 60000
   encr: ${EPY}
-  kfpass: ${KAFKA_PASS}
-  kfuser: ${KAFKA_USER}
+  #  kfpass: ${KAFKA_PASS}
+  #  kfuser: ${KAFKA_USER}
   application:
     name: auth
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${DATABASE_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB}?useSSL=false&serverTimezone=UTC
     username: ${DBUSER}
     password: ${DBPASS}
 
   # JPA properties
   jpa:
     hibernate:
-      ddl-auto: update # When you launch the application for the first time - switch "none" at "create"
+      ddl-auto: update
     show-sql: true
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
     generate-ddl: true
-
 
 logging:
   level:
@@ -62,5 +59,3 @@ scheme: [http,https]
 ribbon:
   ReadTimeout: 2147483647
   ConnectTimeout: 2147483647
-
-
